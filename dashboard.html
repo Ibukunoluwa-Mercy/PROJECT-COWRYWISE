@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Cowrywise</title>
+    <link rel="shortcut icon" href="IMAGES/Logo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+    <header class="top-nav">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <i class="fa-solid fa-bars menu-toggle" id="menuToggle"></i>
+            <a href="index.html" class="logo" style="text-decoration: none;">
+                <img src="IMAGES/Logo.png" alt="Cowrywise Logo">
+            </a>
+        </div>
+        <div class="nav-title">ACCOUNT OVERVIEW</div>
+        <div class="nav-right">
+            <div class="seed-badge">
+                <i class="fa-solid fa-seedling"></i> Seed
+            </div>
+            <i class="fa-regular fa-bell"></i>
+            <div class="user-profile" id="userProfileBtn">
+                <i class="fa-solid fa-user-circle"></i>
+                <i class="fa-solid fa-caret-down" style="font-size: 12px;"></i>
+                <div class="logout-dropdown" id="logoutDropdown">
+                    <div class="logout-item" id="logoutItem">
+                        <i class="fa-solid fa-power-off"></i> Logout
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-main">
+        <aside class="sidebar">
+            <h3 class="greeting" id="sidebarGreeting">Hey User</h3>
+            <ul class="side-menu">
+                <li class="active" onclick="window.location.href='dashboard.html'"><i class="fa-solid fa-wallet"></i>
+                    Home</li>
+                <li onclick="window.location.href='save.html'"><i class="fa-solid fa-piggy-bank"></i> Save</li>
+                <li onclick="window.location.href='invest.html'"><i class="fa-solid fa-chart-line"></i> Invest</li>
+                <li onclick="window.location.href='nest.html'"><i class="fa-solid fa-egg"></i> Nest</li>
+                <li><i class="fa-solid fa-credit-card"></i> Payment</li>
+                <li><i class="fa-solid fa-box-open"></i> Stash</li>
+                <li><i class="fa-solid fa-book-open"></i> Learn</li>
+                <li><i class="fa-solid fa-bullhorn"></i> Referral</li>
+            </ul>
+            <div class="sidebar-bottom">
+                <div class="bottom-title">Also on Cowrywise</div>
+                <div class="sprout"><i class="fa-solid fa-briefcase" style="color: #00d18b;"></i> Sprout for Business <i
+                        class="fa-solid fa-chevron-right"
+                        style="margin-left: auto; font-size: 10px; color: #8fa0b5;"></i></div>
+                <div class="sprout" style="margin-top: 15px;"><i class="fa-solid fa-graduation-cap"
+                        style="color: #0066f5;"></i> Finance for Kids <i class="fa-solid fa-chevron-right"
+                        style="margin-left: auto; font-size: 10px; color: #8fa0b5;"></i></div>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="tabs">
+                <div class="tab active" onclick="window.location.href='dashboard.html'">Home</div>
+                <div class="tab" onclick="window.location.href='portfolio.html'">Portfolio</div>
+            </div>
+
+            <div class="grid-layout">
+                <div class="left-column">
+                    <div class="balance-card">
+                        <div class="card-top">
+                            <span class="card-label">Naira Balance <i class="fa-solid fa-caret-down"></i> <i
+                                    class="fa-regular fa-eye"></i></span>
+                            <span class="lightning"><i class="fa-solid fa-bolt"></i>0</span>
+                        </div>
+                        <div class="amount"><span>₦</span> 0.00<span class="decimal"></span></div>
+
+                        <div class="card-bottom">
+                            <span class="return-badge"><i class="fa-solid fa-certificate" style="color: #ffd700;"></i>
+                                ₦0.00 return in Jun <i class="fa-solid fa-chevron-up"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="profile-card">
+                        <div class="profile-text">
+                            <h4>Your profile is 50% complete</h4>
+                            <p>Set up your account for the full experience</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="add-cash-section">
+                        <h4>Add cash</h4>
+                        <div class="cash-buttons">
+                            <button>₦ 20K</button>
+                            <button>₦ 50K</button>
+                            <button>₦ 100K</button>
+                            <button>$ 100</button>
+                            <button>$ 200</button>
+                            <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="payment-modal-overlay" id="paymentModalOverlay" hidden>
+                        <div class="payment-modal" role="dialog" aria-modal="true" aria-labelledby="paymentModalTitle">
+                            <div class="modal-header">
+                                <h3 id="paymentModalTitle">Add cash</h3>
+                                <button class="modal-close" id="paymentModalClose" aria-label="Close modal">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Enter the amount you want to fund your wallet with.</p>
+                                <input id="paystackAmount" type="number" min="100" placeholder="Amount in Naira" />
+                            </div>
+                            <div class="modal-actions">
+                                <button class="modal-cancel" id="paymentModalCancel">Cancel</button>
+                                <button class="pay-btn" id="paystackPayBtn">Proceed to pay</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="banners">
+                        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="IMAGES/carousel 1.png" alt="">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="IMAGES/carousel 2.png" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="IMAGES/carousel 3.png" class="d-block w-100" alt="...">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="fab">
+        <a href="help.html"><img src="IMAGES/Logo.png" alt="" width="45px"></a>
+    </div>
+
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script src="dashboard.js"></script>
+
+    <script src="script.js"></script>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBmD94LuTA50thW3GvWWrVsVHhGWYqJru0",
+            authDomain: "level-2-project-f94fb.firebaseapp.com",
+            projectId: "level-2-project-f94fb",
+            storageBucket: "level-2-project-f94fb.firebasestorage.app",
+            messagingSenderId: "440123382301",
+            appId: "1:440123382301:web:c69c61d2c7682ba31644f4"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        let userName;
+        let email;
+
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log(user);
+                userName = user.displayName;
+                email = user.email;
+
+                let existingData = JSON.parse(localStorage.getItem('userData')) || {};
+                let firstName = existingData.firstName;
+
+                if (!firstName && userName) {
+                    firstName = userName.split(' ')[0];
+                }
+                if (!firstName && email) {
+                    firstName = email.split('@')[0];
+                }
+
+                existingData.firstName = firstName;
+                existingData.email = email;
+                localStorage.setItem('loggedInUser', user.uid);
+                localStorage.setItem('userData', JSON.stringify(existingData));
+
+                const greetingEl = document.getElementById('sidebarGreeting');
+                if (greetingEl) {
+                    greetingEl.textContent = `Hey ${firstName}`;
+                }
+
+                console.log('Welcome',firstName,';', 'your email is', email);
+
+            } 
+        });
+
+    </script>
+
+</body>
+
+</html>

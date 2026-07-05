@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cowrywise | Log In</title>
+    <link rel="shortcut icon" href="IMAGES/Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f4f7fa;
+        }
+
+        .image img {
+            padding: 50px;
+            margin-top: 30px;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px 50px;
+        }
+
+        .card-1 h3 {
+            color: #0a2e65;
+            font-size: 48px;
+            font-weight: 700;
+        }
+
+        .card-1 h5 {
+            color: #adbacd;
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .card-1 span {
+            color: #adbacd;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .card-1 span a {
+            text-decoration: none;
+            color: #0066f5;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        .card-2 {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-top: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .social {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .social button {
+            background: white;
+            border: 1px solid #e0e0e0;
+            padding: 15px 4px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #49648d;
+            font-weight: 600;
+            font-weight: 16px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .divider hr {
+            width: 50%;
+        }
+
+        .input {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .input input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .input span {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #49648d;
+            opacity: 0.8;
+            ;
+        }
+
+        .password a {
+            color: #0066f5;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        .btn button {
+            padding: 15px 100px;
+            background-color: #0066f5;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .footer-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            width: 450px;
+            color: #666;
+            font-size: 13px;
+            position: absolute;
+            left: 58%;
+        }
+
+        .footer-links a {
+            color: #0066f5;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        .privacy a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 15px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .cards {
+                flex-direction: column;
+                padding: 0px 20px;
+            }
+
+            .card-1 {
+                margin-top: 5px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                position: static;
+                margin-top: 30px;
+                margin-bottom: 20px;
+            }
+
+            .social {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .btn {
+                margin-top: 20px;
+            }
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="image">
+            <a href="index.html"><img src="IMAGES/original-logo.svg" alt=""></a>
+        </div>
+
+        <div class="cards">
+            <div class="card-1">
+                <h3>Jump right in</h3>
+                <h5>Sign in to continue</h5>
+                <span>New user? <a href="createaccount.html">Create account</a></span>
+            </div>
+
+            <div class="card-2">
+                <div class="social">
+                    <button onclick="googleSign()"><img src="IMAGES/google.svg" alt=""> Sign in with Google</button>
+                    <button style="gap: 5px;"><img src="IMAGES/apple.svg" alt=""> Sign in with Apple</button>
+                    </button>
+                </div>
+
+                <div class="divider">
+                    <hr>
+                    <span>or</span>
+                    <hr>
+                </div>
+
+                <form>
+                    <div class="input">
+                        <input type="email" placeholder="Email Address" required id="yourEmail">
+                    </div>
+                    <div class="input">
+                        <input type="password" placeholder="Password" required id="yourPassword">
+                            <span id="togglePassword" onclick="togglePasswordVisibility()"><i id="eyeIcon" class="fa-regular fa-eye"></i></span>
+                    </div>
+                    <div class="password">
+                        <a href="#">Forgot password?</a>
+                    </div>
+
+                    <div class="btn">
+                        <div id="errorMessage"
+                            style="color: red; font-weight: 400; display: none; text-align: start; opacity: 0.6;"></div>
+                        <button id="btn" type="button" onclick="loginForm()">Sign In</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="footer-links">
+            <span>Trouble signing in? <a href="#">Chat with us</a></span>
+
+            <div class="privacy">
+                <a href="#">Privacy</a> | <a href="#">Terms</a>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script src="script.js"></script>
+<script>
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('yourPassword');
+        const eyeIcon = document.getElementById('eyeIcon');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.classList.remove('fa-eye');
+            eyeIcon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            eyeIcon.classList.remove('fa-eye-slash');
+            eyeIcon.classList.add('fa-eye');
+        }
+    }
+</script>
+
+<!-- <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyBmD94LuTA50thW3GvWWrVsVHhGWYqJru0",
+        authDomain: "level-2-project-f94fb.firebaseapp.com",
+        projectId: "level-2-project-f94fb",
+        storageBucket: "level-2-project-f94fb.firebasestorage.app",
+        messagingSenderId: "440123382301",
+        appId: "1:440123382301:web:c69c61d2c7682ba31644f4"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+
+    function googleSign() {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+                const fullName = user.displayName || '';
+                const firstName = fullName.split(' ')[0];
+                localStorage.setItem('loggedInUser', user.uid);
+                localStorage.setItem('userData', JSON.stringify({
+                    firstName: firstName,
+                    email: user.email,
+                    displayName: fullName
+                }));
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1000);
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode);
+                console.log(errorMessage);
+            })
+    }
+    window.googleSign = googleSign
+
+
+const loginForm = () => {
+        const userEmail = document.getElementById('yourEmail').value;
+        const userPassword = document.getElementById('yourPassword').value;
+
+        if (userEmail === "" || userPassword === "") {
+            alert('kindly fill the form');
+            return;
+        }
+
+        signInWithEmailAndPassword(auth, userEmail, userPassword)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log("Welcome back", user.email);
+
+                const existingData = JSON.parse(localStorage.getItem('userData')) || {};
+                localStorage.setItem('loggedInUser', user.uid);
+                if (!existingData.firstName) {
+                    existingData.firstName = user.email.split('@')[0];
+                }
+                existingData.email = user.email;
+                localStorage.setItem('userData', JSON.stringify(existingData));
+
+                window.location.href = 'dashboard.html';
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error("Sign-in error:", errorCode, errorMessage);
+                const errDiv = document.getElementById('errorMessage');
+                errDiv.style.display = 'block';
+
+                if (errorCode === 'auth/user-not-found' || errorCode === 'auth/invalid-credential') {
+                    errDiv.textContent = 'Kindly register your account.';
+                    setTimeout(() => {
+                        window.location.href = 'createaccount.html';
+                    }, 2000);
+                } else if (errorCode === 'auth/wrong-password') {
+                    errDiv.textContent = 'Incorrect password. Please try again.';
+                } else {
+                    errDiv.textContent = 'Invalid email or password. Please try again.';
+                }
+            });
+    }
+
+    window.loginForm = loginForm
+    </script> -->
+
+</html>

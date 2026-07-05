@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Cowrywise</title>
+    <link rel="shortcut icon" href="IMAGES/Logo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="portfolio.css">
+</head>
+
+<body>
+    <header class="top-nav">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <i class="fa-solid fa-bars menu-toggle" id="menuToggle"></i>
+            <a href="index.html" class="logo" style="text-decoration: none;">
+                <img src="IMAGES/Logo.png" alt="Cowrywise Logo" onerror="this.src='https://cowrywise.com/favicon.ico'">
+            </a>
+        </div>
+        <div class="nav-title">PORTFOLIO INSIGHTS</div>
+        <div class="nav-right">
+            <i class="fa-regular fa-bell"></i>
+            <div class="user-profile" id="userProfileBtn">
+                <i class="fa-solid fa-user-circle"></i>
+                <i class="fa-solid fa-caret-down" style="font-size: 12px;"></i>
+                <div class="logout-dropdown" id="logoutDropdown">
+                    <div class="logout-item" id="logoutItem">
+                        <i class="fa-solid fa-power-off"></i> Logout
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-main">
+        <aside class="sidebar">
+            <h3 class="greeting" id="sidebarGreeting">Hey User</h3>
+            <ul class="side-menu">
+                <li class="active" onclick="window.location.href='dashboard.html'"><i class="fa-solid fa-wallet"></i> Home</li>
+                <li onclick="window.location.href='save.html'"><i class="fa-solid fa-piggy-bank"></i> Save</li>
+                <li onclick="window.location.href='invest.html'"><i class="fa-solid fa-chart-line"></i> Invest</li>
+                <li onclick="window.location.href='nest.html'"><i class="fa-solid fa-egg"></i> Nest</li>
+                <li><i class="fa-solid fa-credit-card"></i> Payment</li>
+                <li><i class="fa-solid fa-box-open"></i> Stash</li>
+                <li><i class="fa-solid fa-book-open"></i> Learn</li>
+                <li><i class="fa-solid fa-bullhorn"></i> Referral</li>
+            </ul>
+            <div class="sidebar-bottom">
+                <div class="bottom-title">Also on Cowrywise</div>
+                <div class="sprout"><i class="fa-solid fa-briefcase" style="color: #00d18b;"></i> Sprout for Business <i class="fa-solid fa-chevron-right" style="margin-left: auto; font-size: 10px; color: #8fa0b5;"></i></div>
+                <div class="sprout" style="margin-top: 15px;"><i class="fa-solid fa-graduation-cap" style="color: #0066f5;"></i> Finance for Kids <i class="fa-solid fa-chevron-right" style="margin-left: auto; font-size: 10px; color: #8fa0b5;"></i></div>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="tabs-header-row">
+                <div class="tabs">
+                    <div class="tab" onclick="window.location.href='dashboard.html'">Home</div>
+                    <div class="tab active" onclick="window.location.href='portfolio.html'">Portfolio</div>
+                </div>
+                <a class="request-letter-btn">
+                    <i class="fa-regular fa-envelope"></i> Request investment letter
+                </a>
+            </div>
+
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <div class="card-header-row">
+                        <span class="card-title">
+                            <i class="fa-solid fa-chart-simple title-icon"></i> Growth
+                        </span>
+                    </div>
+                    <div class="growth-content">
+                        <div class="growth-illustration">
+                            <div class="ill-bar ill-bar-1"></div>
+                            <div class="ill-bar ill-bar-2"></div>
+                            <div class="ill-bar ill-bar-3"></div>
+                        </div>
+                        <span class="no-data-text">No data yet</span>
+                    </div>
+                </div>
+
+                <div class="portfolio-card">
+                    <div class="card-header-row">
+                        <span class="card-title">
+                            <i class="fa-solid fa-chart-pie title-icon"></i> Earnings
+                        </span>
+                        <i class="fa-solid fa-chevron-right card-arrow"></i>
+                    </div>
+                    <div class="earnings-desc">
+                        You haven't earned any returns on your investments in June.
+                    </div>
+                    <div class="earnings-stats-row">
+                        <div class="large-percent">
+                            <span class="percent-val">0%</span>
+                            <span class="percent-label">change</span>
+                        </div>
+                        
+                        <div class="vertical-timeline">
+                            <div class="timeline-line"></div>
+                            <div class="timeline-points">
+                                <span class="timeline-point">May</span>
+                                <span class="timeline-point active">Jun</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="earnings-footer">
+                        No earnings this month. Invest more to start earning.
+                    </div>
+                </div>
+            </div>
+
+            <div class="breakdown-card">
+                <div class="card-header-row">
+                    <span class="card-title">
+                        <i class="fa-solid fa-chart-pie title-icon"></i> Breakdown
+                    </span>
+                </div>
+                <div class="breakdown-bar-container"></div>
+                <div class="breakdown-legend">
+                    <div class="legend-item">
+                        <div class="legend-color"></div>
+                        Stash: 0%
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color"></div>
+                        Investments: 0%
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color"></div>
+                        Savings: 0%
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="fab">
+            <img src="IMAGES/Logo.png" alt="" width="45px">
+    </div>
+
+    <script src="portfolio.js"></script>
+</body>
+
+</html>

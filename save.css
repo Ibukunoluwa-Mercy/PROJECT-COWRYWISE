@@ -1,0 +1,853 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Onest", sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #0a2e65;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: #ffffff;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .menu-toggle {
+            font-size: 20px;
+            color: #0a2e65;
+            cursor: pointer;
+            display: none;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 35px;
+            height: 35px;
+        }
+
+        .nav-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #49648d;
+            letter-spacing: 0.5px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .seed-badge {
+            background-color: #ffffff;
+            border: 1px solid #fce8e8;
+            color: #5c1818;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+        }
+
+        .seed-badge i {
+            color: #8b3a3a;
+        }
+
+        .nav-right .fa-bell {
+            font-size: 18px;
+            color: #49648d;
+            position: relative;
+        }
+
+        .nav-right .fa-bell::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            right: 0px;
+            width: 6px;
+            height: 6px;
+            background-color: #ff3366;
+            border-radius: 50%;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #0066f5;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .user-profile .fa-user {
+            font-size: 20px;
+        }
+
+        .logout-dropdown {
+            display: none;
+            position: absolute;
+            top: 35px;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 12px 18px;
+            min-width: 130px;
+            z-index: 1000;
+            text-align: left;
+        }
+
+        .logout-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #0a2e65;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .logout-item:hover {
+            color: #ea4335;
+        }
+
+        .container-main {
+            display: flex;
+            margin-top: 70px;
+            flex-grow: 1;
+        }
+
+        .sidebar {
+            width: 240px;
+            padding: 20px 0 20px 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: calc(100vh - 70px);
+            background-color: #ffffff;
+            z-index: 90;
+        }
+
+        .greeting {
+            font-size: 18px;
+            font-weight: 500;
+            color: #8fa0b5;
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+
+        .side-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .side-menu li {
+            padding: 12px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #49648d;
+            border-radius: 12px 0 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .side-menu li.active {
+            background-color: #f4f7fa;
+            color: #0066f5;
+        }
+
+        .side-menu li:hover:not(.active) {
+            background-color: #fafbfc;
+        }
+
+        .side-menu li i {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-left: 20px;
+        }
+
+        .bottom-title {
+            font-size: 11px;
+            color: #8fa0b5;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .sprout {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #49648d;
+        }
+
+        .content {
+            margin-left: 240px;
+            flex-grow: 1;
+            padding: 40px 50px;
+            background-color: #ffffff;
+            border-top-left-radius: 30px;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.02);
+            min-height: calc(100vh - 70px);
+        }
+
+        .save-header {
+            display: flex;
+            align-items: flex-end;
+            gap: 120px;
+            margin-bottom: 60px;
+        }
+
+        .balance-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-label {
+            color: #8fa0b5;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-label i {
+            cursor: pointer;
+        }
+
+        .amount {
+            font-size: 55px;
+            font-weight: 700;
+            color: #0a2e65;
+            margin-top: 5px;
+            line-height: 1;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .amount span {
+            font-size: 24px;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .amount .decimal {
+            font-size: 28px;
+            color: #0a2e65;
+            margin-left: 2px;
+        }
+
+        .add-cash-section h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0a2e65;
+            margin-bottom: 15px;
+        }
+
+        .cash-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .cash-buttons button {
+            background-color: #f8fafc;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 400;
+            color: #0a2e65;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .cash-buttons button:hover {
+            background-color: #e2e8f0;
+        }
+
+        .cash-buttons .add-btn {
+            padding: 10px 15px;
+            color: #0066f5;
+            background-color: #f4f7fa;
+        }
+
+        .cash-buttons .add-btn:hover {
+            background-color: #e2e8f0;
+        }
+
+        .savings-grid-section {
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0a2e65;
+            margin-bottom: 25px;
+        }
+
+        .savings-grid {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .savings-grid::-webkit-scrollbar {
+            display: none;
+        }
+
+        .saving-card {
+            min-width: 340px;
+            height: 150px;
+            border-radius: 12px;
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .saving-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .saving-card.add-card {
+            background-color: #ffffff;
+            border: 1px solid #f1f5f9;
+            justify-content: center;
+            min-width: 140px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .plus-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #f4f7fa;
+            color: #0066f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+        }
+
+        .blue-card {
+            background-color: #e6f7ff;
+        }
+
+        .purple-card {
+            background-color: #f6f0ff;
+        }
+
+        .green-card {
+            background-color: #ebfbee;
+        }
+
+        .orange-card {
+            background-color: #fff4e6;
+        }
+
+        .pink-card {
+            background-color: #ffeef2;
+        }
+
+        .light-green-card {
+            background-color: #f0fdf4;
+        }
+
+        .light-purple-card {
+            background-color: #faf5ff;
+        }
+
+        .card-icon {
+            font-size: 38px;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .blue-card .card-icon {
+            color: #5cb8ff;
+        }
+
+        .purple-card .card-icon {
+            color: #c48eff;
+        }
+
+        .green-card .card-icon {
+            color: #66cc66;
+        }
+
+        .orange-card .card-icon {
+            color: #ffb84d;
+        }
+
+        .pink-card .card-icon {
+            color: #ff8099;
+        }
+
+        .card-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .card-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0a2e65;
+            margin-bottom: 8px;
+        }
+
+        .empty-badge {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #a0aec0;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .arrow-right {
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            color: #8fa0b5;
+            font-size: 12px;
+            z-index: 10;
+        }
+
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
+            background-color: #0066f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(0, 102, 245, 0.4);
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 100;
+        }
+
+        .cash-buttons button.selected {
+            background-color: #0066f5;
+            color: #ffffff;
+        }
+
+        .payment-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .payment-modal {
+            width: min(460px, 90%);
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 24px;
+            box-shadow: 0 24px 80px rgba(13, 36, 88, 0.15);
+        }
+
+        .payment-modal .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .payment-modal .modal-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0a2e65;
+            margin: 0;
+        }
+
+        .payment-modal .modal-close {
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            color: #6c84a8;
+            cursor: pointer;
+        }
+
+        .payment-modal .modal-body p {
+            color: #5e6f8d;
+            margin-bottom: 16px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .payment-modal .modal-body input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid #d1d5db;
+            font-size: 15px;
+            color: #0a2e65;
+            outline: none;
+        }
+
+        .payment-modal .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .payment-modal .modal-cancel {
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+            color: #0a2e65;
+            padding: 10px 18px;
+            border-radius: 16px;
+            cursor: pointer;
+        }
+
+        .payment-modal .pay-btn {
+            background-color: #0066f5;
+            border: none;
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s ease;
+        }
+
+        .payment-modal .pay-btn:hover {
+            background-color: #0052c4;
+        }
+
+        .fab:hover {
+            transform: scale(1.05);
+            background-color: #0052c4;
+        }
+
+/* Responsiveness */
+        @media (max-width: 1000px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 200;
+                box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 30px 25px;
+            }
+
+            .save-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 25px;
+                margin-bottom: 35px;
+            }
+
+            .amount {
+                font-size: 46px;
+            }
+
+            .saving-card {
+                min-width: 230px;
+                height: 135px;
+            }
+
+            .saving-card.add-card {
+                min-width: 110px;
+            }
+
+            #carouselExample {
+                min-width: 230px;
+                height: 135px;
+            }
+
+            #carouselExample .saving-card {
+                min-width: 100%;
+                height: 100%;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .top-nav {
+                padding: 12px 20px;
+            }
+
+            .seed-badge {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                width: 220px;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 200;
+                box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 20px 16px;
+            }
+
+            .save-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+                margin-bottom: 28px;
+            }
+
+            .amount {
+                font-size: 38px;
+            }
+
+            .add-cash-section h4 {
+                font-size: 14px;
+            }
+
+            .cash-buttons {
+                gap: 8px;
+            }
+
+            .cash-buttons button {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+
+            .section-title {
+                font-size: 17px;
+                margin-bottom: 16px;
+            }
+
+            .savings-grid-section {
+                margin-bottom: 35px;
+            }
+
+
+            .savings-grid {
+                flex-direction: column;
+                gap: 12px;
+                padding-right: 30px;
+                padding-bottom: 6px;
+            }
+
+            .saving-card {
+                min-width: 175px;
+                height: 115px;
+                padding: 14px 16px;
+                gap: 12px;
+                border-radius: 10px;
+            }
+
+            .saving-card.add-card {
+                min-width: 90px;
+            }
+
+            .card-icon img {
+                width: 55px !important;
+            }
+
+            .card-info h4 {
+                font-size: 13px;
+                margin-bottom: 5px;
+            }
+
+            .plus-circle {
+                width: 38px;
+                height: 38px;
+                font-size: 15px;
+            }
+
+            #carouselExample {
+                min-width: 175px;
+                height: 115px;
+            }
+
+            #carouselExample .saving-card {
+                min-width: 100%;
+                height: 100%;
+                padding: 14px 16px;
+            }
+
+            #carouselExample .carousel-control-prev,
+            #carouselExample .carousel-control-next {
+                width: 28px;
+                height: 28px;
+            }
+
+            #carouselExample .carousel-control-prev {
+                left: -12px;
+            }
+
+            #carouselExample .carousel-control-next {
+                right: -12px;
+            }
+
+            #carouselExample .carousel-control-prev-icon,
+            #carouselExample .carousel-control-next-icon {
+                width: 12px;
+                height: 12px;
+            }
+
+            .fab {
+                bottom: 20px;
+                right: 20px;
+                width: 48px;
+                height: 48px;
+            }
+        }
+
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .content {
+                margin-left: 200px;
+                padding: 30px 28px;
+            }
+
+            .save-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 28px;
+                margin-bottom: 38px;
+            }
+
+            .amount {
+                font-size: 46px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            .savings-grid {
+                gap: 14px;
+                padding-right: 24px;
+            }
+
+            .saving-card {
+                min-width: 210px;
+                height: 125px;
+                padding: 16px 18px;
+            }
+
+            .saving-card.add-card {
+                min-width: 100px;
+            }
+
+            .card-icon img {
+                width: 65px !important;
+            }
+
+            .card-info h4 {
+                font-size: 14px;
+            }
+
+            #carouselExample {
+                min-width: 210px;
+                height: 125px;
+            }
+
+            #carouselExample .saving-card {
+                min-width: 100%;
+                height: 100%;
+                padding: 16px 18px;
+            }
+
+            #carouselExample .carousel-control-prev,
+            #carouselExample .carousel-control-next {
+                width: 30px;
+                height: 30px;
+            }
+
+            #carouselExample .carousel-control-prev-icon,
+            #carouselExample .carousel-control-next-icon {
+                width: 13px;
+                height: 13px;
+            }
+        }

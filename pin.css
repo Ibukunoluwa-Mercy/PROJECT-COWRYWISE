@@ -1,0 +1,338 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f4f7fa;
+            font-family: "Onest", sans-serif;
+            overflow: hidden; 
+        }
+
+        .backdrop-container {
+            opacity: 0.5;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .image img {
+            padding: 50px;
+            margin-top: 30px;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px 50px;
+        }
+
+        .card-1 h3 {
+            color: #0a2e65;
+            font-size: 48px;
+            font-weight: 700;
+        }
+
+        .card-1 h5 {
+            color: #adbacd;
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .card-1 span {
+            color: #adbacd;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .card-1 span a {
+            text-decoration: none;
+            color: #0066f5;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        .card-2 {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-top: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .social {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .social button {
+            background: white;
+            border: 1px solid #e0e0e0;
+            padding: 15px 4px;
+            border-radius: 8px;
+            color: #49648d;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .divider hr {
+            width: 50%;
+        }
+
+        .input {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .input input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        .input span {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #49648d;
+            opacity: 0.8;
+        }
+
+        .password a {
+            color: #0066f5;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        .btn button {
+            padding: 15px 100px;
+            background-color: #0066f5;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .footer-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            width: 450px;
+            color: #666;
+            font-size: 13px;
+            position: absolute;
+            left: 58%;
+        }
+
+        .footer-links a {
+            color: #0066f5;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        .privacy a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 15px;
+        }
+
+
+        .pin-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 46, 101, 0.4);
+            backdrop-filter: blur(2px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .pin-modal-card {
+            background-color: #ffffff;
+            width: 90%;
+            max-width: 480px;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(10, 46, 101, 0.15);
+            text-align: center;
+            animation: pinPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes pinPop {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .lock-icon-container {
+            margin-bottom: 18px;
+        }
+
+        .lock-icon-container svg {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .pin-title {
+            color: #0a2e65;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pin-subtitle {
+            color: #6c84a8;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            font-weight: 400;
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pin-section {
+            margin-bottom: 24px;
+        }
+
+        .pin-label {
+            display: block;
+            color: #0a2e65;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .pin-inputs-container {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .pin-input {
+            width: 50px;
+            height: 50px;
+            border: 1.5px solid #e0e6ed;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: #0a2e65;
+            background-color: #ffffff;
+            box-sizing: border-box;
+            transition: all 0.2s ease-in-out;
+            outline: none;
+        }
+
+        .pin-input:focus {
+            border-color: #0066f5;
+            box-shadow: 0 0 0 3px rgba(0, 102, 245, 0.12);
+        }
+
+        .pin-btn-container {
+            margin-top: 10px;
+        }
+
+        .pin-submit-btn {
+            width: auto;
+            min-width: 150px;
+            padding: 12px 30px;
+            background-color: #7da9f9; 
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: not-allowed;
+            transition: all 0.25s ease;
+        }
+
+        .pin-submit-btn.active {
+            background-color: #0066f5;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 102, 245, 0.25);
+        }
+
+        .pin-submit-btn.active:hover {
+            background-color: #0052c4;
+            transform: translateY(-1px);
+        }
+
+        .pin-submit-btn.active:active {
+            transform: translateY(1px);
+        }
+
+        @media screen and (max-width: 768px) {
+            .cards {
+                flex-direction: column;
+                padding: 0px 20px;
+            }
+
+            .card-1 {
+                margin-top: 5px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                position: static;
+                margin-top: 30px;
+                margin-bottom: 20px;
+            }
+
+            .social {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .btn {
+                margin-top: 20px;
+            }
+
+            .pin-modal-card {
+                padding: 30px 20px;
+            }
+
+            .pin-input {
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
+            }
+        }

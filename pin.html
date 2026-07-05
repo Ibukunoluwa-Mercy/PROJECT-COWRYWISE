@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cowrywise | Create PIN</title>
+    <link rel="shortcut icon" href="IMAGES/Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="pin.css">
+</head>
+
+<body>
+    <div class="container backdrop-container">
+        <div class="image">
+            <a href="#"><img src="IMAGES/original-logo.svg" alt=""></a>
+        </div>
+
+        <div class="cards">
+            <div class="card-1">
+                <h3>Jump right in</h3>
+                <h5>Sign in to continue</h5>
+                <span>New user? <a href="#">Create account</a></span>
+            </div>
+
+            <div class="card-2">
+                <div class="social">
+                    <button disabled><img src="IMAGES/google.svg" alt=""> Sign in with Google</button>
+                    <button style="gap: 5px;" disabled><img src="IMAGES/apple.svg" alt=""> Sign in with Apple</button>
+                </div>
+
+                <div class="divider">
+                    <hr>
+                    <span>or</span>
+                    <hr>
+                </div>
+
+                <form>
+                    <div class="input">
+                        <input type="email" placeholder="Email Address" disabled id="yourEmail" tabindex="-1">
+                    </div>
+                    <div class="input">
+                        <input type="password" placeholder="Password" disabled id="yourPassword" tabindex="-1">
+                        <span><i class="fa-regular fa-eye"></i></span>
+                    </div>
+                    <div class="password">
+                        <a href="#">Forgot password?</a>
+                    </div>
+
+                    <div class="btn">
+                        <button id="btn" type="button" disabled tabindex="-1">Sign In</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="footer-links">
+            <span>Trouble signing in? <a href="#">Chat with us</a></span>
+            <div class="privacy">
+                <a href="#">Privacy</a> | <a href="#">Terms</a>
+            </div>
+        </div>
+    </div>
+    <div class="pin-overlay">
+        <div class="pin-modal-card">
+            <div class="lock-icon-container">
+<i class="fa-solid fa-lock" style="font-size: 40px; color: #0052c4;"></i>
+            </div>
+            <h4 class="pin-title">Create PIN</h4>
+            <p class="pin-subtitle">Your PIN adds an extra layer of security to your Cowrywise account</p>
+
+            <form id="pinForm" onsubmit="handlePinSubmit(event)">
+                <div class="pin-section">
+                    <label class="pin-label">Create your PIN</label>
+                    <div class="pin-inputs-container" id="createPinContainer">
+                        <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="pin-input create-pin-field" required autocomplete="off">
+                        <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="pin-input create-pin-field" required autocomplete="off">
+                        <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="pin-input create-pin-field" required autocomplete="off">
+                        <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="pin-input create-pin-field" required autocomplete="off">
+                    </div>
+                </div>
+                <div class="pin-section">
+                    <label class="pin-label">Confirm your PIN</label>
+                    <div class="pin-inputs-container" id="confirmPinContainer">
+                        <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="pin-input confirm-pin-field" required autocomplete="off">
+                        <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="pin-input confirm-pin-field" required autocomplete="off">
+                        <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="pin-input confirm-pin-field" required autocomplete="off">
+                        <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="pin-input confirm-pin-field" required autocomplete="off">
+                    </div>
+                </div>
+                <div class="pin-btn-container">
+                    <button type="submit" id="createPinBtn" class="pin-submit-btn" disabled>Create PIN</button>
+                </div>
+            </form>
+        </div>
+    </div>>
+    <script src="script.js"></script>
+
+    <script src="pin.js"></script>
+</body>
+
+</html>
