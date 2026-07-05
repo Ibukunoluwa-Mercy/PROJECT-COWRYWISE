@@ -313,13 +313,15 @@
                             </div>
                             <div class="input-type">
                                 <input type="password" autofocus placeholder="Password" required id="inputPassword">
-                                <span class="eye-icon" onclick="togglePasswordField('inputPassword', this)"><i class="fa-regular fa-eye"></i></span>
+                                <span class="eye-icon" onclick="togglePasswordField('inputPassword', this)"><i
+                                        class="fa-regular fa-eye"></i></span>
                                 <div id="message"></div>
                             </div>
                             <div class="input-type">
                                 <input type="password" autofocus placeholder="Confirm Password" required
                                     id="inputConfirmPassword">
-                                <span class="eye-icon" onclick="togglePasswordField('inputConfirmPassword', this)"><i class="fa-regular fa-eye"></i></span>
+                                <span class="eye-icon" onclick="togglePasswordField('inputConfirmPassword', this)"><i
+                                        class="fa-regular fa-eye"></i></span>
                             </div>
                         </div>
 
@@ -375,8 +377,7 @@
         }
     }
 </script>
-
-<!-- <script type="module">
+<script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
     import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
@@ -385,19 +386,18 @@
 
     // Your web app's Firebase configuration
     const firebaseConfig = {
-        apiKey: "AIzaSyBmD94LuTA50thW3GvWWrVsVHhGWYqJru0",
-        authDomain: "level-2-project-f94fb.firebaseapp.com",
-        projectId: "level-2-project-f94fb",
-        storageBucket: "level-2-project-f94fb.firebasestorage.app",
-        messagingSenderId: "440123382301",
-        appId: "1:440123382301:web:c69c61d2c7682ba31644f4"
+        apiKey: "AIzaSyAXrI6w4SUZSvQKwOLhEKQgBJP4_IIVG4U",
+        authDomain: "project-cowrywise.firebaseapp.com",
+        projectId: "project-cowrywise",
+        storageBucket: "project-cowrywise.firebasestorage.app",
+        messagingSenderId: "941775035575",
+        appId: "1:941775035575:web:641bec9ad2778b5b214132"
     };
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
-
 
     function googleSign() {
         signInWithPopup(auth, provider)
@@ -423,6 +423,7 @@
                 console.log(errorMessage);
             })
     }
+    
     window.googleSign = googleSign
 
 
@@ -435,7 +436,7 @@
         const userPassword = document.getElementById('inputPassword').value;
         const userConfirmPassword = document.getElementById('inputConfirmPassword').value;
 
-        if (email === "" || userLegalName === "" || userLegalLastName === "" || userName === "" || userPhoneNumber === "" ||  userPassword === "" || userConfirmPassword === "") {
+        if (email === "" || userLegalName === "" || userLegalLastName === "" || userName === "" || userPhoneNumber === "" || userPassword === "" || userConfirmPassword === "") {
             alert('kindly fill the form')
         }
         createUserWithEmailAndPassword(auth, email, userPassword)
@@ -464,7 +465,6 @@
 
 
     window.createForm = createForm
-
-</script> -->
+</script>
 
 </html>

@@ -161,10 +161,8 @@
     <div class="fab">
         <a href="help.html"><img src="IMAGES/Logo.png" alt="" width="45px"></a>
     </div>
-
     <script src="https://js.paystack.co/v1/inline.js"></script>
     <script src="dashboard.js"></script>
-
     <script src="script.js"></script>
 
     <script type="module">
@@ -176,12 +174,12 @@
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyBmD94LuTA50thW3GvWWrVsVHhGWYqJru0",
-            authDomain: "level-2-project-f94fb.firebaseapp.com",
-            projectId: "level-2-project-f94fb",
-            storageBucket: "level-2-project-f94fb.firebasestorage.app",
-            messagingSenderId: "440123382301",
-            appId: "1:440123382301:web:c69c61d2c7682ba31644f4"
+            apiKey: "AIzaSyAXrI6w4SUZSvQKwOLhEKQgBJP4_IIVG4U",
+            authDomain: "project-cowrywise.firebaseapp.com",
+            projectId: "project-cowrywise",
+            storageBucket: "project-cowrywise.firebasestorage.app",
+            messagingSenderId: "941775035575",
+            appId: "1:941775035575:web:641bec9ad2778b5b214132"
         };
 
         // Initialize Firebase
@@ -190,7 +188,6 @@
 
         let userName;
         let email;
-
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -218,12 +215,12 @@
                     greetingEl.textContent = `Hey ${firstName}`;
                 }
 
-                console.log('Welcome',firstName,';', 'your email is', email);
+                console.log('Welcome', firstName, ';', 'your email is', email);
 
-            } 
+            }
         });
-
     </script>
+
 
 </body>
 
