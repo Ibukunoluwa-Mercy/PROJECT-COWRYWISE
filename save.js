@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
             startPaystackPayment();
         });
     }
-    // Eye icon: toggle show/hide of the savings balance amount
+
     const eyeIcon = document.querySelector('.save-header .balance-section .fa-eye, .save-header .balance-section .fa-eye-slash');
     const amountEl = document.querySelector('.save-header .balance-section .amount');
     if (eyeIcon && amountEl) {

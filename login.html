@@ -345,6 +345,19 @@
             return;
         }
 
+        const disabledEmail = localStorage.getItem('disabledAccountEmail');
+        const disabledTime = localStorage.getItem('disabledAccountTime');
+        if (disabledEmail && disabledEmail === userEmail && disabledTime) {
+            const timePassed = Date.now() - parseInt(disabledTime);
+            if (timePassed < 5 * 60 * 1000) {
+                alert('you can only log in back with the same email after five minutes');
+                return;
+            } else {
+                localStorage.removeItem('disabledAccountEmail');
+                localStorage.removeItem('disabledAccountTime');
+            }
+        }
+
         signInWithEmailAndPassword(auth, userEmail, userPassword)
             .then((userCredential) => {
                 const user = userCredential.user;
@@ -368,10 +381,9 @@
                 errDiv.style.display = 'block';
 
                 if (errorCode === 'auth/user-not-found' || errorCode === 'auth/invalid-credential') {
-                    errDiv.textContent = 'Kindly register your account.';
-                    setTimeout(() => {
-                        window.location.href = 'createaccount.html';
-                    }, 2000);
+                    errDiv.style.display = 'none';
+                    alert('This email is not registered, kindly create an account');
+                    window.location.href = 'createaccount.html';
                 } else if (errorCode === 'auth/wrong-password') {
                     errDiv.textContent = 'Incorrect password. Please try again.';
                 } else {

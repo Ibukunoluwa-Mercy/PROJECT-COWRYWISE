@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cowrywise | Profile</title>
+    <link rel="shortcut icon" href="IMAGES/Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="profile.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <a href="dashboard.html"><img src="IMAGES/Logo.png" alt="" width="35px"></a>
+        </div>
+        <div class="user-greeting">
+            <h5 id="greetingName">Go <strong>Ibukunoluwa</strong></h5>
+        </div>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="dashboard.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="save.html"><i class="fa-solid fa-piggy-bank"></i> Save</a></li>
+                <li><a href="invest.html"><i class="fa-solid fa-chart-line"></i> Invest</a></li>
+                <li><a href="nest.html"><i class="fa-solid fa-egg"></i> Nest</a></li>
+                <li><a href="#"><i class="fa-solid fa-credit-card"></i> Payment</a></li>
+                <li><a href="#"><i class="fa-solid fa-box-open"></i> Stash</a></li>
+                <li><a href="#"><i class="fa-solid fa-book-open"></i> Learn</a></li>
+                <li><a href="#"><i class="fa-solid fa-bullhorn"></i> Referral</a></li>
+            </ul>
+        </nav>
+        <div class="also-on">
+            <p>Also on Cowrywise</p>
+            <ul>
+                <li><a href="#"><i class="fa-solid fa-briefcase" style="color: #00d18b;"></i> Sprout for Business <i
+                            class="fa-solid fa-chevron-right"></i></a></li>
+                <li><a href="#"><i class="fa-solid fa-graduation-cap" style="color: #0066f5;"></i> Finance for Kids<i
+                            class="fa-solid fa-chevron-right"></i></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="logo-mobile">
+            <i class="fa-solid fa-bars hamburger-menu" id="hamburgerMenu"></i>
+            <a href="dashboard.html"><img src="IMAGES/Logo.png" alt="" width="20px"></a>
+        </div>
+        <div class="header-title">PROFILE</div>
+        <div class="header-right">
+            <i class="fa-regular fa-bell"></i>
+            <div class="user-profile" id="userProfileBtn">
+                <i class="fa-solid fa-user-circle"></i>
+                <i class="fa-solid fa-caret-down" style="font-size: 12px;"></i>
+                <div class="logout-dropdown" id="logoutDropdown">
+                    <a href="profile.html" style="text-decoration: none; color: inherit;">
+                        <div class="logout-item" style="margin-bottom: 5px;">
+                            <i class="fa-solid fa-user"></i> Profile
+                        </div>
+                    </a>
+                    <div class="logout-item" id="logoutItem">
+                        <i class="fa-solid fa-power-off"></i> Logout
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-main">
+        <div class="profile-tabs">
+            <button class="tab" onclick="window.location.href='profile.html'">Personal</button>
+            <button class="tab active" onclick="window.location.href='security.html'">Security</button>
+        </div>
+
+        <div class="profile-content">
+
+            <div id="tabSecurity" class="tab-content">
+                <h3 class="section-title">Verified Information</h3>
+                <div class="form-section">
+                    <div class="form-row align-items-center border-bottom pb-3">
+                        <div class="form-label-col">
+                            <h4>Email Address</h4>
+                        </div>
+                        <div class="form-input-col">
+                            <p class="value-text" id="displayEmail" style="color: #0a2e65; font-size: 14px; margin: 0;">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-row align-items-center border-bottom py-3">
+                        <div class="form-label-col">
+                            <h4>Phone Number</h4>
+                        </div>
+                        <div class="form-input-col d-flex align-items-center" id="phoneContainer">
+                            <p class="value-text mb-0 me-3" id="phoneDisplay"
+                                style="color: #0a2e65; font-size: 14px; display: none;"></p>
+                            <i class="fa-solid fa-pen text-primary" id="editPhoneBtn"
+                                style="cursor: pointer; display: none;"></i>
+                            <a href="#" class="text-primary text-decoration-none fw-semibold" id="addPhoneBtn"
+                                style="font-size: 14px;">Add Phone</a>
+                            <div class="input-group" id="phoneInputGroup" style="display: none;">
+                                <input type="text" id="phoneInput" placeholder="Enter Phone Number">
+                                <button class="btn btn-primary btn-sm ms-2" id="savePhoneBtn">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row align-items-center border-bottom py-3">
+                        <div class="form-label-col">
+                            <h4>Bank Verification Number (BVN)</h4>
+                        </div>
+                        <div class="form-input-col" id="bvnContainer">
+                            <a href="#" class="text-primary text-decoration-none fw-semibold" id="addBvnBtn"
+                                style="font-size: 14px;">Add BVN</a>
+                            <div class="input-group mt-2" id="bvnInputGroup" style="display: none;">
+                                <input type="text" id="bvnInput" placeholder="Enter BVN">
+                                <button class="btn btn-primary btn-sm ms-2" id="saveBvnBtn">Save</button>
+                            </div>
+                            <p class="value-text mt-2 mb-0" id="bvnDisplay"
+                                style="display: none; color: #0a2e65; font-size: 14px;"></p>
+                        </div>
+                    </div>
+                    <div class="form-row align-items-center py-3">
+                        <div class="form-label-col">
+                            <h4>National Identification Number (NIN)</h4>
+                        </div>
+                        <div class="form-input-col" id="ninContainer">
+                            <a href="#" class="text-primary text-decoration-none fw-semibold" id="addNinBtn"
+                                style="font-size: 14px;">Add NIN</a>
+                            <div class="input-group mt-2" id="ninInputGroup" style="display: none;">
+                                <input type="text" id="ninInput" placeholder="Enter NIN">
+                                <button class="btn btn-primary btn-sm ms-2" id="saveNinBtn">Save</button>
+                            </div>
+                            <p class="value-text mt-2 mb-0" id="ninDisplay"
+                                style="display: none; color: #0a2e65; font-size: 14px;"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title mt-5">Account Protection</h3>
+                <div class="form-section">
+                    <div class="form-row align-items-center border-bottom pb-3">
+                        <div class="form-label-col">
+                            <h4>Two-Factor Authentication</h4>
+                            <p>Protect your Cowrywise account from unauthorized transactions using a software token.</p>
+                        </div>
+                        <div class="form-input-col">
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="tfaToggle">
+                                <label for="tfaToggle"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row align-items-center py-3">
+                        <div class="form-label-col">
+                            <h4>Manage Device</h4>
+                            <p>Track your device login history</p>
+                        </div>
+                        <div class="form-input-col">
+                            <a href="#" class="text-primary text-decoration-none fw-semibold"
+                                style="font-size: 14px;">Manage Devices</a>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title mt-5">Password & PIN</h3>
+                <div class="form-section">
+                    <div class="form-row align-items-center border-bottom pb-3">
+                        <div class="form-label-col">
+                            <h4>Update Password</h4>
+                            <p>Change your old password to a new one</p>
+                        </div>
+                        <div class="form-input-col">
+                            <a href="#" class="text-primary text-decoration-none fw-semibold"
+                                style="font-size: 14px;">Change Password</a>
+                        </div>
+                    </div>
+                    <div class="form-row align-items-center py-3">
+                        <div class="form-label-col">
+                            <h4>Update PIN</h4>
+                            <p>Change or reset your Cowrywise PIN</p>
+                        </div>
+                        <div class="form-input-col">
+                            <a href="#" class="text-primary text-decoration-none fw-semibold"
+                                style="font-size: 14px;">Change PIN</a>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title mt-5">Termination</h3>
+                <div class="form-section pb-5">
+                    <div class="form-row align-items-center">
+                        <div class="form-label-col">
+                            <a href="#" id="disableAccountBtn"
+                                class="text-danger text-decoration-none fw-semibold d-block mb-3"
+                                style="font-size: 14px;">Temporarily disable my account</a>
+                            <a href="#" id="closeAccountBtn"
+                                class="text-danger text-decoration-none fw-semibold d-block"
+                                style="font-size: 14px;">Close my account</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="help-btn">
+        <a href="help.html"><img src="IMAGES/Logo.png" alt="" width="45px"></a>
+    </div>
+
+    <script src="dashboard.js"></script>
+    <script src="security.js"></script>
+</body>
+
+</html>

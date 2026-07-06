@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 logoutDropdown.style.display = 'none';
             });
 
-            // Menu Toggle for mobile sidebar
+
             const menuToggle = document.getElementById('menuToggle');
             const sidebar = document.querySelector('.sidebar');
             if (menuToggle && sidebar) {
@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 handler.openIframe();
             }
 
-            // Eye icon: toggle show/hide of the invest balance amount
+
             const eyeIcon = document.querySelector('.invest-header .balance-section .fa-eye, .invest-header .balance-section .fa-eye-slash');
             const amountEl = document.querySelector('.invest-header .balance-section .amount');
             if (eyeIcon && amountEl) {

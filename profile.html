@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cowrywise | Profile</title>
+    <link rel="shortcut icon" href="IMAGES/Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="profile.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <a href="dashboard.html"><img src="IMAGES/Logo.png" alt="" width="20px"></a>
+        </div>
+        <div class="user-greeting">
+            <h5 id="greetingName">Go <strong>Ibukunoluwa</strong></h5>
+        </div>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="dashboard.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="save.html"><i class="fa-solid fa-piggy-bank"></i> Save</a></li>
+                <li><a href="invest.html"><i class="fa-solid fa-chart-line"></i> Invest</a></li>
+                <li><a href="nest.html"><i class="fa-solid fa-egg"></i> Nest</a></li>
+                <li><a href="#"><i class="fa-solid fa-credit-card"></i> Payment</a></li>
+                <li><a href="#"><i class="fa-solid fa-box-open"></i> Stash</a></li>
+                <li><a href="#"><i class="fa-solid fa-box-open"></i> Learn</a></li>
+                <li><a href="#"><i class="fa-solid fa-bullhorn"></i> Referral</a></li>
+            </ul>
+        </nav>
+        <div class="also-on">
+            <p>Also on Cowrywise</p>
+            <ul>
+                <li><a href="#"><i class="fa-solid fa-briefcase" style="color: #00d18b;"></i> Sprout for Business <i
+                            class="fa-solid fa-chevron-right"></i></a></li>
+                <li><a href="#"><i class="fa-solid fa-graduation-cap" style="color: #0066f5;"></i> Finance for Kids<i
+                            class="fa-solid fa-chevron-right"></i></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="logo-mobile">
+            <i class="fa-solid fa-bars hamburger-menu" id="hamburgerMenu"></i>
+            <a href="dashboard.html"><img src="IMAGES/Logo.png" alt="" width="20px"></a>
+        </div>
+        <div class="header-title">PROFILE</div>
+        <div class="header-right">
+            <i class="fa-regular fa-bell"></i>
+            <div class="user-profile" id="userProfileBtn">
+                <i class="fa-solid fa-user-circle"></i>
+                <i class="fa-solid fa-caret-down" style="font-size: 12px;"></i>
+                <div class="logout-dropdown" id="logoutDropdown">
+                    <a href="profile.html" style="text-decoration: none; color: inherit;">
+                        <div class="logout-item" style="margin-bottom: 5px;">
+                            <i class="fa-solid fa-user"></i> Profile
+                        </div>
+                    </a>
+                    <div class="logout-item" id="logoutItem">
+                        <i class="fa-solid fa-power-off"></i> Logout
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-main">
+        <div class="profile-tabs">
+            <button class="tab active" onclick="window.location.href='profile.html'">Personal</button>
+            <button class="tab" onclick="window.location.href='security.html'">Security</button>
+        </div>
+
+        <div class="profile-content">
+
+            <div id="tabPersonal" class="tab-content active">
+                <h3 class="section-title">Personalize Details</h3>
+
+                <div class="profile-header-card">
+                    <div class="profile-avatar-sec">
+                        <div class="avatar-large">
+                            <img src="IMAGES/avatar.svg" alt="">
+                            <div class="camera-icon"><i class="fa-solid fa-camera"></i></div>
+                        </div>
+                        <h2 class="user-full-name">Ibukunoluwa Ojedapo</h2>
+                    </div>
+                    <div class="profile-completion-card">
+                        <div class="icon-circle"><i class="fa-solid fa-info"></i></div>
+                        <div class="card-text">
+                            <p>Finish setting up your account by completing your profile.</p>
+                            <a href="#">COMPLETE PROFILE <i class="fa-solid fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <div>
+                            <p class="progress-title">Your profile is <strong>50% complete</strong></p>
+                            <p class="progress-sub">Set up your account for the full experience</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 16%;"></div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-row align-items-center">
+                        <div class="form-label-col">
+                            <h4>Username</h4>
+                            <p>Receive money from friends using your username</p>
+                        </div>
+                        <div class="form-input-col">
+                            <div class="input-group">
+                                <label>Username</label>
+                                <input type="text" id="usernameInput" value="@ibukunojedapo2022">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="save-btn-container">
+                        <button class="btn-save">Save Changes</button>
+                    </div>
+
+                    <div class="form-row border-top">
+                        <div class="form-label-col">
+                            <h4>Gender</h4>
+                        </div>
+                        <div class="form-input-col">
+                            <p class="value-text">Female</p>
+                        </div>
+                    </div>
+
+                    <div class="form-row border-top">
+                        <div class="form-label-col">
+                            <h4>Date of Birth</h4>
+                        </div>
+                        <div class="form-input-col">
+                            <p class="value-text">2005-01-27</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title mt-5">Next of Kin</h3>
+                <div class="form-section">
+                    <div class="form-row align-items-center">
+                        <div class="form-label-col" style="flex: 2;">
+                            <p class="value-text text-muted" id="nokDisplay">No Next Of Kin</p>
+                            <div class="input-group" id="nokInputGroup" style="display: none;">
+                                <label>Next of Kin Name</label>
+                                <input type="text" id="nokInput" placeholder="Enter full name">
+                            </div>
+                        </div>
+                        <div class="form-input-col text-end">
+                            <button class="btn-primary-small" id="nokBtn">Add Next Of Kin</button>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title mt-5">Visibility</h3>
+                <div class="form-section">
+                    <div class="form-row align-items-center">
+                        <div class="form-label-col">
+                            <h4>Account Visibility</h4>
+                            <p>Disable my account from being discovered by friends.</p>
+                        </div>
+                        <div class="form-input-col">
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="visibilityToggle" checked>
+                                <label for="visibilityToggle"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title mt-5">Appearance</h3>
+                <div class="form-section pb-5">
+                    <div class="form-row">
+                        <div class="form-label-col">
+                            <h4>Theme</h4>
+                        </div>
+                        <div class="form-input-col">
+                            <div class="theme-options">
+                                <div class="theme-option active" id="themeSystem">
+                                    <div class="theme-icon"><i class="fa-solid fa-circle-half-stroke"></i></div>
+                                    <span>System</span>
+                                </div>
+                                <div class="theme-option" id="themeDay">
+                                    <div class="theme-icon"><i class="fa-regular fa-sun"></i></div>
+                                    <span>Day</span>
+                                </div>
+                                <div class="theme-option" id="themeNight">
+                                    <div class="theme-icon"><i class="fa-solid fa-moon"></i></div>
+                                    <span>Night</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="help-btn">
+            <a href="help.html"><img src="IMAGES/Logo.png" alt="" width="45px"></a>
+        </div>
+
+        <script src="dashboard.js"></script>
+        <script src="profile.js"></script>
+</body>
+
+</html>

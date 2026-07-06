@@ -40,9 +40,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const userData = JSON.parse(localStorage.getItem('userData')) || {};
             const firstName = userData.firstName || "Adeola";
-            document.getElementById('sidebarGreeting').textContent = `Hey ${firstName}`;
+            const greetingEl = document.getElementById('sidebarGreeting');
+            if (greetingEl) {
+                greetingEl.textContent = `Hey ${firstName}`;
+            }
             initializeWalletBalance();
             updateBalanceDisplay();
+
+
+            const savedTheme = localStorage.getItem('appTheme') || 'system';
+            if (savedTheme === 'night' || (savedTheme === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.body.classList.add('dark-theme');
+            }
 
             const userProfileBtn = document.getElementById('userProfileBtn');
             const logoutDropdown = document.getElementById('logoutDropdown');
@@ -143,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         });
-            // Eye icon: toggle show/hide of the naira balance amount
+
             const eyeIcon = document.querySelector('.balance-card .card-label .fa-eye, .balance-card .card-label .fa-eye-slash');
             const amountEl = document.querySelector('.balance-card .amount');
             if (eyeIcon && amountEl) {
