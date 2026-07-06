@@ -309,7 +309,7 @@
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
-    function googleSign() {
+    const googleSign = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
                 const user = result.user;
