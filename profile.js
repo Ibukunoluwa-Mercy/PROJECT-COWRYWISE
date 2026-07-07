@@ -26,6 +26,11 @@
                 usernameInput.value = existingData.username || derivedUsername;
             }
 
+            const emailDisplay = document.getElementById('emailDisplay');
+            if (emailDisplay) {
+                emailDisplay.textContent = existingData.email || 'Not provided';
+            }
+
 
             const saveBtn = document.querySelector('.btn-save');
             if (saveBtn && usernameInput) {
@@ -73,6 +78,94 @@
                         }
                         nokDisplay.style.display = 'block';
                         nokInputGroup.style.display = 'none';
+                    }
+                });
+            }
+
+            const genderDisplay = document.getElementById('genderDisplay');
+            const genderInputGroup = document.getElementById('genderInputGroup');
+            const genderInput = document.getElementById('genderInput');
+            const genderBtn = document.getElementById('genderBtn');
+
+            if (existingData.gender) {
+                if (genderDisplay) {
+                    genderDisplay.textContent = existingData.gender;
+                    genderDisplay.classList.remove('text-muted');
+                }
+                if (genderBtn) genderBtn.textContent = 'Edit';
+            } else {
+                if (genderDisplay) {
+                    genderDisplay.textContent = 'Female';
+                    genderDisplay.classList.remove('text-muted');
+                }
+                if (genderBtn) genderBtn.textContent = 'Edit';
+            }
+
+            if (genderBtn) {
+                genderBtn.addEventListener('click', () => {
+                    if (genderBtn.textContent === 'Add Gender' || genderBtn.textContent === 'Edit') {
+                        genderDisplay.style.display = 'none';
+                        genderInputGroup.style.display = 'block';
+                        genderInput.value = existingData.gender || 'Female';
+                        genderBtn.textContent = 'Save';
+                    } else if (genderBtn.textContent === 'Save') {
+                        const newVal = genderInput.value;
+                        if (newVal) {
+                            existingData.gender = newVal;
+                            localStorage.setItem('userData', JSON.stringify(existingData));
+                            genderDisplay.textContent = newVal;
+                            genderDisplay.classList.remove('text-muted');
+                            genderBtn.textContent = 'Edit';
+                        }
+                        genderDisplay.style.display = 'block';
+                        genderInputGroup.style.display = 'none';
+                    }
+                });
+            }
+
+            const dobDisplay = document.getElementById('dobDisplay');
+            const dobInputGroup = document.getElementById('dobInputGroup');
+            const dobInput = document.getElementById('dobInput');
+            const dobBtn = document.getElementById('dobBtn');
+
+            if (existingData.dob) {
+                if (dobDisplay) {
+                    dobDisplay.textContent = existingData.dob;
+                    dobDisplay.classList.remove('text-muted');
+                }
+                if (dobBtn) dobBtn.textContent = 'Edit';
+            } else {
+                if (dobDisplay) {
+                    dobDisplay.textContent = 'Not provided';
+                    dobDisplay.classList.add('text-muted');
+                }
+                if (dobBtn) dobBtn.textContent = 'Add Date of Birth';
+            }
+
+            if (dobBtn) {
+                dobBtn.addEventListener('click', () => {
+                    if (dobBtn.textContent === 'Add Date of Birth' || dobBtn.textContent === 'Edit') {
+                        dobDisplay.style.display = 'none';
+                        dobInputGroup.style.display = 'block';
+                        dobInput.value = existingData.dob || '';
+                        dobBtn.textContent = 'Save';
+                    } else if (dobBtn.textContent === 'Save') {
+                        const newVal = dobInput.value;
+                        if (newVal) {
+                            existingData.dob = newVal;
+                            localStorage.setItem('userData', JSON.stringify(existingData));
+                            dobDisplay.textContent = newVal;
+                            dobDisplay.classList.remove('text-muted');
+                            dobBtn.textContent = 'Edit';
+                        } else {
+                            existingData.dob = '';
+                            localStorage.setItem('userData', JSON.stringify(existingData));
+                            dobDisplay.textContent = 'Not provided';
+                            dobDisplay.classList.add('text-muted');
+                            dobBtn.textContent = 'Add Date of Birth';
+                        }
+                        dobDisplay.style.display = 'block';
+                        dobInputGroup.style.display = 'none';
                     }
                 });
             }

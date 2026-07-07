@@ -110,7 +110,17 @@
                 </div>
 
                 <div class="form-section">
-                    <div class="form-row align-items-center">
+                    <div class="form-row align-items-center pb-4">
+                        <div class="form-label-col">
+                            <h4>Email Address</h4>
+                            <p>The email associated with your account</p>
+                        </div>
+                        <div class="form-input-col">
+                            <p class="value-text" id="emailDisplay">Loading...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row align-items-center border-top pt-4">
                         <div class="form-label-col">
                             <h4>Username</h4>
                             <p>Receive money from friends using your username</p>
@@ -126,21 +136,35 @@
                         <button class="btn-save">Save Changes</button>
                     </div>
 
-                    <div class="form-row border-top">
-                        <div class="form-label-col">
+                    <div class="form-row border-top align-items-center pt-4 mt-4">
+                        <div class="form-label-col" style="flex: 2;">
                             <h4>Gender</h4>
+                            <p class="value-text" id="genderDisplay">Female</p>
+                            <div class="input-group" id="genderInputGroup" style="display: none;">
+                                <select id="genderInput" class="form-control" style="width: auto;">
+                                    <option value="Female">Female</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Other">Custom</option>
+                                    <option value="Other">Others</option>
+                                    <option value="Prefer not to say">Prefer not to say</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-input-col">
-                            <p class="value-text">Female</p>
+                        <div class="form-input-col text-end">
+                            <button class="btn-primary-small" id="genderBtn">Edit</button>
                         </div>
                     </div>
 
-                    <div class="form-row border-top">
-                        <div class="form-label-col">
+                    <div class="form-row border-top align-items-center pt-4 mt-4">
+                        <div class="form-label-col" style="flex: 2;">
                             <h4>Date of Birth</h4>
+                            <p class="value-text" id="dobDisplay">2005-01-27</p>
+                            <div class="input-group" id="dobInputGroup" style="display: none;">
+                                <input type="date" id="dobInput" class="form-control" style="width: auto;">
+                            </div>
                         </div>
-                        <div class="form-input-col">
-                            <p class="value-text">2005-01-27</p>
+                        <div class="form-input-col text-end">
+                            <button class="btn-primary-small" id="dobBtn">Edit</button>
                         </div>
                     </div>
                 </div>
