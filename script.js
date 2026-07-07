@@ -275,5 +275,43 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
+function showGifLoadingScreenGeneric(targetUrl) {
+    const loaderOverlay = document.createElement('div');
+    loaderOverlay.style.position = 'fixed';
+    loaderOverlay.style.top = '0';
+    loaderOverlay.style.left = '0';
+    loaderOverlay.style.width = '100%';
+    loaderOverlay.style.height = '100%';
+    loaderOverlay.style.backgroundColor = '#ffffff';
+    loaderOverlay.style.display = 'flex';
+    loaderOverlay.style.justifyContent = 'center';
+    loaderOverlay.style.alignItems = 'center';
+    loaderOverlay.style.zIndex = '10000';
+
+    const gifImg = document.createElement('img');
+    gifImg.src = 'IMAGES/gif-logo-loading.gif';
+    gifImg.alt = 'Loading...';
+    gifImg.style.width = '120px';
+    gifImg.style.height = '120px';
+
+    loaderOverlay.appendChild(gifImg);
+    document.body.appendChild(loaderOverlay);
+
+    setTimeout(() => {
+        window.location.href = targetUrl;
+    }, 3000);
+}
+
+document.addEventListener('click', function(e) {
+    const target = e.target.closest('a');
+    if (target && target.getAttribute('href')) {
+        const href = target.getAttribute('href');
+        if (href === 'login.html' || href === 'createaccount.html') {
+            e.preventDefault();
+            showGifLoadingScreenGeneric(href);
+        }
+    }
+});
+
 
 
