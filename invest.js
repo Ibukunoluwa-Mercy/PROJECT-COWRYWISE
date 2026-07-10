@@ -221,10 +221,43 @@ document.addEventListener('DOMContentLoaded', () => {
                         updateBalanceDisplay();
                         clearAmountSelection();
                         closePaymentModal();
-                        alert(`Payment successful! Reference: ${response.reference}`);
+                        Toastify({
+                            text: `✅ Payment successful! Ref: ${response.reference}`,
+                            duration: 5000,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            stopOnFocus: true,
+                            style: {
+                                background: "linear-gradient(to right, #00d18b, #00b09b)",
+                                borderRadius: "12px",
+                                fontFamily: "'Onest', sans-serif",
+                                fontSize: "14px",
+                                padding: "14px 20px",
+                                boxShadow: "0 8px 24px rgba(0, 209, 139, 0.3)",
+                            },
+                            onClick: function(){}
+                        }).showToast();
                     },
                     onClose() {
-                        alert('Payment window was closed before completion.');
+                        Toastify({
+                            text: "⚠️ Payment was cancelled before completion.",
+                            duration: 4000,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            stopOnFocus: true,
+                            style: {
+                                background: "linear-gradient(to right, #f7971e, #ffd200)",
+                                borderRadius: "12px",
+                                fontFamily: "'Onest', sans-serif",
+                                fontSize: "14px",
+                                padding: "14px 20px",
+                                color: "#1a1a2e",
+                                boxShadow: "0 8px 24px rgba(247, 151, 30, 0.3)",
+                            },
+                            onClick: function(){}
+                        }).showToast();
                     },
                 });
 

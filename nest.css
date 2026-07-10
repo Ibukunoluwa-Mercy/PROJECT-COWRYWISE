@@ -548,6 +548,10 @@
             .content {
                 padding: 30px 25px;
             }
+
+            .seed-badge{
+                display: none;
+            }
         }
 
         @media screen and (max-width: 768px) {

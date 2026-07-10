@@ -501,6 +501,11 @@
                 z-index: 1000;
                 box-shadow: 5px 0 15px rgba(0,0,0,0.1);
             }
+
+            .seed-badge{
+                display: none;
+            }
+
             .content {
                 margin-left: 0;
                 padding: 20px 15px;
@@ -653,4 +658,5 @@
                 left: 20px !important;
                 top: 5px !important;
             }
+
         }
