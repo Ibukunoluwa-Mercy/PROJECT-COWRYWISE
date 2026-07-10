@@ -9,27 +9,6 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
-.head-header {
-    background-color: #fce0c0;
-    justify-content: center;
-    overflow: hidden;
-    animation: scrollAway 0.5s ease-in-out 3s forwards;
-}
-.head-header p{
-text-align: center;
-margin-top: 5px;
-
-}
-
-@keyframes scrollAway {
-    to {
-        max-height: 0;
-        opacity: 0;
-        margin: 0;
-        padding: 0;
-    }
-}
-
 .navbar-nav .nav-link {
     color: #6c82a3;
     font-size: 17px;

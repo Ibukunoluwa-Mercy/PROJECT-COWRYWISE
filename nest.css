@@ -507,29 +507,34 @@
             transform: scale(0.98);
         }
 
-        .fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 55px;
-            height: 55px;
-            background-color: #0066f5;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-size: 24px;
-            box-shadow: 0 4px 15px rgba(0, 102, 245, 0.4);
-            cursor: pointer;
-            transition: 0.3s;
-            z-index: 100;
-        }
+ .fab {
+     position: fixed;
+     bottom: 30px;
+     right: 30px;
+     width: 55px;
+     height: 55px;
+     background-color: #0066f5;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: #ffffff;
+     font-size: 24px;
+     cursor: pointer;
+     /* transition: 0.3s; */
+     z-index: 100;
+ }
 
-        .fab:hover {
-            transform: scale(1.05);
-            background-color: #0052c4;
-        }
+ .fab:hover {
+     transform: scale(1.05);
+     background-color: #0052c4;
+ }
+
+ .fab button {
+    border: none;
+    background: transparent;
+ }
+
 
         /* Responsiveness */
         @media (max-width: 1000px) {
@@ -562,17 +567,19 @@
                 display: block;
             }
             .sidebar {
-                display: none;
-            }
-            .sidebar.active {
-                display: flex !important;
                 position: fixed;
                 top: 70px;
                 left: 0;
                 width: 240px;
                 height: calc(100vh - 70px);
                 background: #ffffff;
-                z-index: 1000;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 1001;
+                overflow-y: auto;
+            }
+            .sidebar.active {
+                transform: translateX(0);
                 box-shadow: 5px 0 15px rgba(0,0,0,0.1);
             }
             .content {
@@ -633,3 +640,103 @@
                 max-width: 180px;
             }
         }
+
+        /* ── Nest Form Success State ─────────────────────────────────── */
+        .nest-success-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px 30px;
+            gap: 16px;
+            animation: modalScaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 420px;
+            width: 100%;
+        }
+
+        .nest-success-icon {
+            font-size: 64px;
+            color: #00d18b;
+            line-height: 1;
+        }
+
+        .nest-success-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #0a2e65;
+            margin: 0;
+        }
+
+        .nest-success-sub {
+            font-size: 15px;
+            color: #49648d;
+            font-weight: 500;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .nest-success-sub strong {
+            color: #0a2e65;
+            font-weight: 700;
+        }
+
+        .nest-success-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background: #f4f7fa;
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin: 4px 0;
+        }
+
+        .detail-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #49648d;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0a2e65;
+        }
+
+        .nest-success-note {
+            font-size: 12px;
+            color: #8fa0b5;
+            font-weight: 500;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .btn-nest-home {
+            background-color: #0066f5;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 14px 32px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 8px;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 4px 12px rgba(0, 102, 245, 0.2);
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-nest-home:hover {
+            background-color: #0052c4;
+            color: #ffffff;
+        }
+
+        .btn-nest-home:active {
+            transform: scale(0.98);
+        }
+        /* ──────────────────────────────────────────────────────────── */

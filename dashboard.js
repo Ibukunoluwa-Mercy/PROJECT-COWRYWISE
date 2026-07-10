@@ -47,12 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
             initializeWalletBalance();
             updateBalanceDisplay();
 
-
-            const savedTheme = localStorage.getItem('appTheme') || 'system';
-            if (savedTheme === 'night' || (savedTheme === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.body.classList.add('dark-theme');
-            }
-
             const userProfileBtn = document.getElementById('userProfileBtn');
             const logoutDropdown = document.getElementById('logoutDropdown');
             const logoutItem = document.getElementById('logoutItem');
@@ -76,9 +70,30 @@ document.addEventListener('DOMContentLoaded', () => {
             const menuToggle = document.getElementById('menuToggle');
             const sidebar = document.querySelector('.sidebar');
             if (menuToggle && sidebar) {
+                // Create dim overlay for clicking outside to close
+                const sidebarOverlay = document.createElement('div');
+                sidebarOverlay.id = 'sidebarOverlay';
+                sidebarOverlay.style.cssText = 'display:none;position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:1000;transition:opacity 0.3s;';
+                document.body.appendChild(sidebarOverlay);
+
+                const openSidebar = () => {
+                    sidebar.classList.add('active');
+                    sidebarOverlay.style.display = 'block';
+                };
+                const closeSidebar = () => {
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.style.display = 'none';
+                };
+
                 menuToggle.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    sidebar.classList.toggle('active');
+                    sidebar.classList.contains('active') ? closeSidebar() : openSidebar();
+                });
+
+                sidebarOverlay.addEventListener('click', closeSidebar);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') closeSidebar();
                 });
             }
 
@@ -97,14 +112,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const selectAmountButton = (button) => {
                 clearAmountSelection();
                 button.classList.add('selected');
-                const rawValue = button.textContent.replace(/[^0-9]/g, '');
+                // Use data-amount if set, otherwise parse text (handles "20K" → 20000)
+                let rawValue;
+                if (button.dataset.amount) {
+                    rawValue = button.dataset.amount;
+                } else {
+                    const text = button.textContent.trim();
+                    const hasK = /k/i.test(text);
+                    const digits = text.replace(/[^0-9.]/gi, '');
+                    rawValue = digits ? (hasK ? String(parseFloat(digits) * 1000) : digits) : '';
+                }
                 if (paystackAmountInput && rawValue) {
                     paystackAmountInput.value = rawValue;
                 }
             };
 
             cashButtons.forEach((button) => {
-                button.addEventListener('click', () => selectAmountButton(button));
+                button.addEventListener('click', () => {
+                    selectAmountButton(button);
+                    openPaymentModal();
+                });
             });
 
             const closePaymentModal = () => {

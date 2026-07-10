@@ -473,24 +473,34 @@
             z-index: 10;
         }
 
-        .fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 55px;
-            height: 55px;
-            background-color: #0066f5;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-size: 24px;
-            box-shadow: 0 4px 15px rgba(0, 102, 245, 0.4);
-            cursor: pointer;
-            transition: 0.3s;
-            z-index: 100;
-        }
+ .fab {
+     position: fixed;
+     bottom: 30px;
+     right: 30px;
+     width: 55px;
+     height: 55px;
+     background-color: #0066f5;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: #ffffff;
+     font-size: 24px;
+     cursor: pointer;
+     /* transition: 0.3s; */
+     z-index: 100;
+ }
+
+ .fab:hover {
+     transform: scale(1.05);
+     background-color: #0052c4;
+ }
+
+ .fab button {
+    border: none;
+    background: transparent;
+ }
+
 
         .cash-buttons button.selected {
             background-color: #0066f5;
@@ -657,10 +667,15 @@
             }
 
             .sidebar {
+                position: fixed;
+                top: 70px;
+                left: 0;
                 width: 220px;
+                height: calc(100vh - 70px);
+                background: #ffffff;
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
-                z-index: 200;
+                z-index: 1001;
                 box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
             }
 

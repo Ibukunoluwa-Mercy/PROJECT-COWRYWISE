@@ -1,64 +1,29 @@
-const WALLET_BALANCE_PREFIX = 'walletBalance::';
-
-function getWalletBalanceKey() {
-    const userId = localStorage.getItem('loggedInUser');
-    return userId ? `${WALLET_BALANCE_PREFIX}${userId}` : `${WALLET_BALANCE_PREFIX}guest`;
-}
-
-function getWalletBalance() {
-    const value = localStorage.getItem(getWalletBalanceKey());
-    return value ? Number(value) : 0;
-}
-
-function setWalletBalance(amount) {
-    localStorage.setItem(getWalletBalanceKey(), String(amount));
-}
-
-function initializeWalletBalance() {
-    const key = getWalletBalanceKey();
-    if (localStorage.getItem(key) === null) {
-        localStorage.setItem(key, '0');
-    }
-}
-
-function formatNaira(amount) {
-    return amount.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
-
-function updateBalanceDisplay() {
-    const amountEl = document.querySelector('.save-header .balance-section .amount');
-    if (!amountEl) return;
-    amountEl.innerHTML = `<span>₦</span> ${formatNaira(getWalletBalance())}`;
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     if (!localStorage.getItem('loggedInUser')) {
         window.location.href = 'login.html';
         return;
     }
+
+    // Initial theme is set by theme-loader.js in <head> to prevent FOUC.
+    // This listener handles live updates if the OS theme changes while the user is on the page.
+    if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            const savedTheme = localStorage.getItem('appTheme') || 'system';
+            if (savedTheme === 'system') {
+                // If system theme is active, toggle dark-theme class based on OS preference
+                const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.classList.toggle('dark-theme', isDark);
+            }
+        });
+    }
+
     const userData = JSON.parse(localStorage.getItem('userData')) || {};
-    const firstName = userData.firstName || "Adeola";
-    document.getElementById('sidebarGreeting').textContent = `Hey ${firstName}`;
+    const firstName = userData.firstName || "User";
 
-    const userProfileBtn = document.getElementById('userProfileBtn');
-    const logoutDropdown = document.getElementById('logoutDropdown');
-    const logoutItem = document.getElementById('logoutItem');
-
-    userProfileBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isShown = logoutDropdown.style.display === 'block';
-        logoutDropdown.style.display = isShown ? 'none' : 'block';
-    });
-
-    logoutItem.addEventListener('click', (e) => {
-        e.stopPropagation();
-        localStorage.removeItem('loggedInUser');
-        window.location.href = 'login.html';
-    });
-
-    document.addEventListener('click', () => {
-        logoutDropdown.style.display = 'none';
-    });
+    const greetingEl = document.getElementById('sidebarGreeting');
+    if (greetingEl) {
+        greetingEl.textContent = `Hey ${firstName}`;
+    }
 
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.querySelector('.sidebar');
@@ -66,6 +31,86 @@ document.addEventListener('DOMContentLoaded', () => {
         menuToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             sidebar.classList.toggle('active');
+        });
+    }
+
+    const userProfileBtn = document.getElementById('userProfileBtn');
+    const logoutDropdown = document.getElementById('logoutDropdown');
+    if (userProfileBtn && logoutDropdown) {
+        userProfileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            logoutDropdown.style.display = logoutDropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', () => {
+            logoutDropdown.style.display = 'none';
+        });
+    }
+
+    const logoutItem = document.getElementById('logoutItem');
+    if (logoutItem) {
+        logoutItem.addEventListener('click', (e) => {
+            e.stopPropagation();
+            localStorage.removeItem('loggedInUser');
+            window.location.href = 'login.html';
+        });
+    }
+
+    // Logic for balance and payments, similar to dashboard
+    const WALLET_BALANCE_PREFIX = 'walletBalance::';
+
+    function getWalletBalanceKey() {
+        const userId = localStorage.getItem('loggedInUser');
+        return userId ? `${WALLET_BALANCE_PREFIX}${userId}` : `${WALLET_BALANCE_PREFIX}guest`;
+    }
+
+    function getWalletBalance() {
+        const value = localStorage.getItem(getWalletBalanceKey());
+        return value ? Number(value) : 0;
+    }
+
+    function setWalletBalance(amount) {
+        localStorage.setItem(getWalletBalanceKey(), String(amount));
+    }
+
+    function formatNaira(amount) {
+        return amount.toLocaleString('en-NG', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
+    const amountEl = document.querySelector('.balance-section .amount');
+    const eyeIcon = document.querySelector('.balance-section .card-label .fa-eye, .balance-section .card-label .fa-eye-slash');
+
+    if (amountEl) {
+        amountEl.innerHTML = `<span>₦</span>${formatNaira(getWalletBalance())}<span class="decimal" style="opacity: 0.6;">.00</span>`;
+    }
+
+    if (eyeIcon && amountEl) {
+        eyeIcon.style.cursor = 'pointer';
+        let hidden = false;
+
+        const showBalance = () => {
+            amountEl.innerHTML = `<span>₦</span>${formatNaira(getWalletBalance())}<span class="decimal" style="opacity: 0.6;">.00</span>`;
+            eyeIcon.classList.remove('fa-eye-slash');
+            eyeIcon.classList.add('fa-eye');
+        };
+
+        const hideBalance = () => {
+            amountEl.innerHTML = '<span>₦</span> <span class="masked">•••••</span>';
+            eyeIcon.classList.remove('fa-eye');
+            eyeIcon.classList.add('fa-eye-slash');
+        };
+
+        eyeIcon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            hidden = !hidden;
+            if (hidden) {
+                hideBalance();
+            } else {
+                showBalance();
+            }
         });
     }
 
@@ -77,197 +122,74 @@ document.addEventListener('DOMContentLoaded', () => {
     const paymentModalClose = document.getElementById('paymentModalClose');
     const paymentModalCancel = document.getElementById('paymentModalCancel');
 
-    const parseAmount = (text) => {
-        if (!text) return 0;
-        let normalized = text.replace(/,/g, '').replace(/₦|\$|NGN|USD/gi, '').trim().toUpperCase();
-        let multiplier = 1;
-        if (normalized.endsWith('K')) {
-            multiplier = 1000;
-            normalized = normalized.slice(0, -1).trim();
-        }
-        if (normalized.endsWith('M')) {
-            multiplier = 1000000;
-            normalized = normalized.slice(0, -1).trim();
-        }
-        const numericValue = Number(normalized);
-        return Number.isFinite(numericValue) ? numericValue * multiplier : 0;
-    };
-
-    const closePaymentModal = () => {
-        if (paymentModalOverlay) {
-            paymentModalOverlay.hidden = true;
-        }
-        if (paystackAmountInput) {
-            paystackAmountInput.value = '';
-        }
-    };
-
-    const openPaymentModal = (amount = '') => {
-        if (paymentModalOverlay) {
-            paymentModalOverlay.hidden = false;
-        }
-        if (paystackAmountInput) {
-            paystackAmountInput.value = amount;
-            paystackAmountInput.focus();
-        }
-    };
-
-    const clearAmountSelection = () => {
-        cashButtons.forEach((button) => button.classList.remove('selected'));
-    };
-
-    const selectAmountButton = (button) => {
-        clearAmountSelection();
-        button.classList.add('selected');
-        const amount = parseAmount(button.textContent);
-        if (paystackAmountInput) {
-            paystackAmountInput.value = amount || '';
-        }
-    };
-
-    cashButtons.forEach((button) => {
-        button.addEventListener('click', (e) => {
-            e.stopPropagation();
-            selectAmountButton(button);
-            const amount = parseAmount(button.textContent);
-            openPaymentModal(amount || '');
+    cashButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            let rawValue;
+            if (button.dataset.amount) {
+                rawValue = button.dataset.amount;
+            } else {
+                const text = button.textContent.trim();
+                const hasK = /k/i.test(text);
+                const digits = text.replace(/[^0-9.]/gi, '');
+                rawValue = digits ? (hasK ? String(parseFloat(digits) * 1000) : digits) : '';
+            }
+            if (paystackAmountInput && rawValue) {
+                paystackAmountInput.value = rawValue;
+            }
+            openPaymentModal();
         });
     });
 
-    if (addCashButton) {
-        addCashButton.addEventListener('click', (e) => {
-            e.stopPropagation();
-            openPaymentModal('');
-        });
-    }
+    const closePaymentModal = () => {
+        if (paymentModalOverlay) paymentModalOverlay.hidden = true;
+    };
 
-    if (paymentModalClose) {
-        paymentModalClose.addEventListener('click', closePaymentModal);
-    }
+    const openPaymentModal = () => {
+        if (paymentModalOverlay) paymentModalOverlay.hidden = false;
+        if (paystackAmountInput) paystackAmountInput.focus();
+    };
 
-    if (paymentModalCancel) {
-        paymentModalCancel.addEventListener('click', closePaymentModal);
-    }
-
+    if (addCashButton) addCashButton.addEventListener('click', openPaymentModal);
+    if (paymentModalClose) paymentModalClose.addEventListener('click', closePaymentModal);
+    if (paymentModalCancel) paymentModalCancel.addEventListener('click', closePaymentModal);
     if (paymentModalOverlay) {
         paymentModalOverlay.addEventListener('click', (e) => {
-            if (e.target === paymentModalOverlay) {
-                closePaymentModal();
-            }
-        });
-    }
-
-    if (paystackPayBtn && paystackAmountInput) {
-        paystackPayBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            startPaystackPayment();
-        });
-    }
-
-    const eyeIcon = document.querySelector('.save-header .balance-section .fa-eye, .save-header .balance-section .fa-eye-slash');
-    const amountEl = document.querySelector('.save-header .balance-section .amount');
-    if (eyeIcon && amountEl) {
-        eyeIcon.style.cursor = 'pointer';
-        const originalHTML = amountEl.innerHTML;
-        let hidden = false;
-
-        eyeIcon.addEventListener('click', (e) => {
-            e.stopPropagation();
-            hidden = !hidden;
-            if (hidden) {
-                amountEl.innerHTML = '<span>₦</span> <span class="masked">•••••</span>';
-                eyeIcon.classList.remove('fa-eye');
-                eyeIcon.classList.add('fa-eye-slash');
-            } else {
-                amountEl.innerHTML = originalHTML;
-                eyeIcon.classList.remove('fa-eye-slash');
-                eyeIcon.classList.add('fa-eye');
-            }
+            if (e.target === paymentModalOverlay) closePaymentModal();
         });
     }
 
     function startPaystackPayment() {
-        const paystackAmountInput = document.getElementById('paystackAmount');
-        const amountValue = paystackAmountInput ? Number(paystackAmountInput.value.replace(/[^0-9]/g, '')) : 0;
-        if (!amountValue || amountValue < 100) {
-            alert('Enter a valid amount of at least ₦100.');
-            return;
-        }
-
-        if (!window.PaystackPop) {
-            alert('Paystack SDK is not loaded. Please refresh and try again.');
-            return;
-        }
-
-        const userData = JSON.parse(localStorage.getItem('userData')) || {};
-        const email = userData.email || 'customer@example.com';
-        const firstName = userData.firstName || '';
-        const lastName = userData.lastName || '';
-        const fullName = `${firstName} ${lastName}`.trim() || 'Customer';
+        const amountValue = Number(paystackAmountInput.value.replace(/[^0-9]/g, ''));
+        if (!amountValue || amountValue < 100) return alert('Enter a valid amount of at least ₦100.');
+        if (!window.PaystackPop) return alert('Paystack SDK is not loaded.');
 
         const handler = PaystackPop.setup({
             key: 'pk_test_f9099f0dab62a34161b2bbdcb1a5796358d7079f',
-            email,
+            email: userData.email || 'customer@example.com',
             amount: amountValue * 100,
             currency: 'NGN',
             ref: `COWRYWISE-${Math.floor(Math.random() * 1000000000)}`,
-            metadata: {
-                custom_fields: [
-                    {
-                        display_name: 'Full Name',
-                        variable_name: 'full_name',
-                        value: fullName,
-                    },
-                ],
-            },
             callback(response) {
-                const currentBalance = getWalletBalance();
-                const newBalance = currentBalance + amountValue;
+                const newBalance = getWalletBalance() + amountValue;
                 setWalletBalance(newBalance);
-                updateBalanceDisplay();
-                clearAmountSelection();
+                if (amountEl) {
+                    amountEl.innerHTML = `<span>₦</span>${formatNaira(newBalance)}<span class="decimal" style="opacity: 0.6;">.00</span>`;
+                }
                 closePaymentModal();
-
                 Toastify({
-                    text: `✅ Payment successful! Ref: ${response.reference}`,
-                    duration: 5000,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    stopOnFocus: true,
-                    style: {
-                        background: "linear-gradient(to right, #00d18b, #00b09b)",
-                        borderRadius: "12px",
-                        fontFamily: "'Onest', sans-serif",
-                        fontSize: "14px",
-                        padding: "14px 20px",
-                        boxShadow: "0 8px 24px rgba(0, 209, 139, 0.3)",
-                    },
-                    onClick: function(){}
+                    text: `✅ Payment successful! Ref: ${response.reference}`
                 }).showToast();
             },
             onClose() {
                 Toastify({
-                    text: "⚠️ Payment was cancelled before completion.",
-                    duration: 4000,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    stopOnFocus: true,
-                    style: {
-                        background: "linear-gradient(to right, #f7971e, #ffd200)",
-                        borderRadius: "12px",
-                        fontFamily: "'Onest', sans-serif",
-                        fontSize: "14px",
-                        padding: "14px 20px",
-                        color: "#1a1a2e",
-                        boxShadow: "0 8px 24px rgba(247, 151, 30, 0.3)",
-                    },
-                    onClick: function(){}
+                    text: "⚠️ Payment was cancelled."
                 }).showToast();
             },
         });
-
         handler.openIframe();
+    }
+
+    if (paystackPayBtn) {
+        paystackPayBtn.addEventListener('click', startPaystackPayment);
     }
 });

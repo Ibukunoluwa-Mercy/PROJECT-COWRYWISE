@@ -25,6 +25,34 @@ body {
     z-index: 100;
 }
 
+ .fab {
+     position: fixed;
+     bottom: 30px;
+     right: 30px;
+     width: 55px;
+     height: 55px;
+     background-color: #0066f5;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: #ffffff;
+     font-size: 24px;
+     cursor: pointer;
+     /* transition: 0.3s; */
+     z-index: 100;
+ }
+
+ .fab:hover {
+     transform: scale(1.05);
+     background-color: #0052c4;
+ }
+
+ .fab button {
+    border: none;
+    background: transparent;
+ }
+
 .logo img {
     width: 40px;
     margin-bottom: 20px;
@@ -728,4 +756,49 @@ body.dark-theme .theme-option span {
 
 body.dark-theme .theme-option.active .theme-icon {
     background-color: #1a2b4c;
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        margin-left: 0;
+        width: 100%;
+        padding: 15px 20px;
+    }
+    .logo-mobile {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    .logo-mobile .hamburger-menu {
+        font-size: 20px;
+        color: #0a2e65;
+        cursor: pointer;
+    }
+    .sidebar {
+        display: none;
+    }
+    .sidebar .logo {
+        display: none;
+    }
+    .sidebar.active {
+        display: flex !important;
+        position: fixed;
+        top: 65px;
+        left: 0;
+        width: 240px;
+        height: calc(100vh - 65px);
+        background: #f4f7fa;
+        z-index: 1000;
+        box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+    }
+    .container-main {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+        border-top-left-radius: 0;
+    }
+    .profile-tabs {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
 }

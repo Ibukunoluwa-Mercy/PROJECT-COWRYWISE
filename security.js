@@ -175,18 +175,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
-    const savedTheme = localStorage.getItem('appTheme') || 'system';
-    const body = document.body;
-
-    function updateThemeUI(theme) {
-        body.classList.remove('dark-theme');
-        if (theme === 'night') {
-            body.classList.add('dark-theme');
-        } else if (theme === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            body.classList.add('dark-theme');
-        }
-    }
-
-    updateThemeUI(savedTheme);
 });

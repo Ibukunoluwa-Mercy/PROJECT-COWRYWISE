@@ -10,6 +10,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="profile.css">
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/07/10/08/20260710084313-0BFXJUAE.js" defer></script>
 </head>
 
 <body>
@@ -119,7 +121,7 @@
                             <p class="value-text" id="emailDisplay">Loading...</p>
                         </div>
                     </div>
-                    
+
                     <div class="form-row align-items-center border-top pt-4">
                         <div class="form-label-col">
                             <h4>Username</h4>
@@ -200,37 +202,12 @@
                         </div>
                     </div>
                 </div>
-
-                <h3 class="section-title mt-5">Appearance</h3>
-                <div class="form-section pb-5">
-                    <div class="form-row">
-                        <div class="form-label-col">
-                            <h4>Theme</h4>
-                        </div>
-                        <div class="form-input-col">
-                            <div class="theme-options">
-                                <div class="theme-option active" id="themeSystem">
-                                    <div class="theme-icon"><i class="fa-solid fa-circle-half-stroke"></i></div>
-                                    <span>System</span>
-                                </div>
-                                <div class="theme-option" id="themeDay">
-                                    <div class="theme-icon"><i class="fa-regular fa-sun"></i></div>
-                                    <span>Day</span>
-                                </div>
-                                <div class="theme-option" id="themeNight">
-                                    <div class="theme-icon"><i class="fa-solid fa-moon"></i></div>
-                                    <span>Night</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
 
-        <div class="help-btn">
-            <a href="#"><img src="IMAGES/Logo.png" alt="" width="45px"></a>
+        <div class="fab">
+            <button id="bp-toggle-chat"><img src="IMAGES/Logo.png" alt="" width="45px"></button>
         </div>
 
         <script src="dashboard.js"></script>

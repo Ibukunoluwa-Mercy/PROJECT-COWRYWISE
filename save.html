@@ -15,6 +15,33 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="save.css">
+    <style>
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                position: fixed !important;
+                top: 70px !important;
+                left: 0 !important;
+                width: 240px !important;
+                height: calc(100vh - 70px) !important;
+                background: #ffffff !important;
+                transform: translateX(-100%) !important;
+                transition: transform 0.3s ease !important;
+                z-index: 1001 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                padding: 20px 0 20px 20px !important;
+                overflow-y: auto !important;
+            }
+            .sidebar.active {
+                transform: translateX(0) !important;
+                box-shadow: 5px 0 20px rgba(0,0,0,0.12) !important;
+            }
+        }
+    </style>
+    
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2026/07/10/08/20260710084313-0BFXJUAE.js" defer></script>
+    
 </head>
 
 <body>
@@ -84,11 +111,11 @@
                 <div class="add-cash-section">
                     <h4>Add cash</h4>
                     <div class="cash-buttons">
-                        <button>₦ 20K</button>
-                        <button>₦ 50K</button>
-                        <button>₦ 100K</button>
-                        <button>₦ 250K</button>
-                        <button>₦ 500K</button>
+                        <button data-amount="20000">₦ 20K</button>
+                        <button data-amount="50000">₦ 50K</button>
+                        <button data-amount="100000">₦ 100K</button>
+                        <button data-amount="250000">₦ 250K</button>
+                        <button data-amount="500000">₦ 500K</button>
                         <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
                     </div>
                 </div>
@@ -213,12 +240,13 @@
     </div>
 
     <div class="fab">
-        <img src="IMAGES/Logo.png" alt="" width="45px">
+        <button id="bp-toggle-chat"><img src="IMAGES/Logo.png"  alt="" width="45px"></button>
     </div>
 
     <script src="https://js.paystack.co/v1/inline.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="save.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

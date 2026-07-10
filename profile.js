@@ -19,6 +19,15 @@
                 document.querySelector('.user-full-name').textContent = existingData.email.split('@')[0];
             }
             
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const sidebar = document.querySelector('.sidebar');
+            if (hamburgerMenu && sidebar) {
+                hamburgerMenu.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    sidebar.classList.toggle('active');
+                });
+            }
+
             const usernameInput = document.getElementById('usernameInput');
             if (existingData.email && usernameInput) {
 
@@ -183,49 +192,6 @@
             }
 
 
-
-
-
-
-            const themeSystem = document.getElementById('themeSystem');
-            const themeDay = document.getElementById('themeDay');
-            const themeNight = document.getElementById('themeNight');
-            const body = document.body;
-
-            const savedTheme = localStorage.getItem('appTheme') || 'system';
-
-            function updateThemeUI(theme) {
-                [themeSystem, themeDay, themeNight].forEach(el => el.classList.remove('active'));
-                if (theme === 'system') themeSystem.classList.add('active');
-                if (theme === 'day') themeDay.classList.add('active');
-                if (theme === 'night') themeNight.classList.add('active');
-                
-                body.classList.remove('dark-theme');
-                if (theme === 'night') {
-                    body.classList.add('dark-theme');
-                } else if (theme === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    body.classList.add('dark-theme');
-                }
-            }
-
-            updateThemeUI(savedTheme);
-
-            themeSystem.addEventListener('click', () => {
-                localStorage.setItem('appTheme', 'system');
-                updateThemeUI('system');
-            });
-
-            themeDay.addEventListener('click', () => {
-                localStorage.setItem('appTheme', 'day');
-                updateThemeUI('day');
-            });
-
-            themeNight.addEventListener('click', () => {
-                localStorage.setItem('appTheme', 'night');
-                updateThemeUI('night');
-            });
-
-
             const completionCard = document.querySelector('.profile-completion-card');
             if (completionCard) {
                 setTimeout(() => {
@@ -236,4 +202,44 @@
                     }, 500);
                 }, 3000);
             }
+
+            // ── Theme Switcher ──────────────────────────────────────────
+            const themeSystem = document.getElementById('themeSystem');
+            const themeDay    = document.getElementById('themeDay');
+            const themeNight  = document.getElementById('themeNight');
+            const themeOptions = [themeSystem, themeDay, themeNight];
+
+            function applyTheme(theme) {
+                // Save preference
+                localStorage.setItem('appTheme', theme);
+
+                // Update html class
+                if (theme === 'night') {
+                    document.documentElement.classList.add('dark-theme');
+                } else if (theme === 'day') {
+                    document.documentElement.classList.remove('dark-theme');
+                } else {
+                    // system: follow OS preference
+                    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    if (prefersDark) {
+                        document.documentElement.classList.add('dark-theme');
+                    } else {
+                        document.documentElement.classList.remove('dark-theme');
+                    }
+                }
+
+                // Update active button UI
+                themeOptions.forEach(btn => btn && btn.classList.remove('active'));
+                const map = { system: themeSystem, day: themeDay, night: themeNight };
+                if (map[theme]) map[theme].classList.add('active');
+            }
+
+            // Set active button on page load to match saved preference
+            const savedTheme = localStorage.getItem('appTheme') || 'system';
+            applyTheme(savedTheme);
+
+            if (themeSystem) themeSystem.addEventListener('click', () => applyTheme('system'));
+            if (themeDay)    themeDay.addEventListener('click',    () => applyTheme('day'));
+            if (themeNight)  themeNight.addEventListener('click',  () => applyTheme('night'));
+            // ────────────────────────────────────────────────────────────
         });
