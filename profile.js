@@ -18,13 +18,41 @@
             } else if (existingData.email) {
                 document.querySelector('.user-full-name').textContent = existingData.email.split('@')[0];
             }
-            
-            const hamburgerMenu = document.getElementById('hamburgerMenu');
-            const sidebar = document.querySelector('.sidebar');
-            if (hamburgerMenu && sidebar) {
-                hamburgerMenu.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    sidebar.classList.toggle('active');
+
+            // --- Profile Picture Upload ---
+            const avatarContainer = document.querySelector('.avatar-large');
+            const profileAvatarImg = document.getElementById('profileAvatar');
+            const avatarUploadInput = document.getElementById('avatarUpload');
+
+            // On page load, check for a saved avatar in localStorage and display it
+            if (profileAvatarImg && existingData.profileAvatar) {
+                profileAvatarImg.src = existingData.profileAvatar;
+            }
+
+            // When the avatar container is clicked, programmatically click the hidden file input
+            if (avatarContainer) {
+                avatarContainer.style.cursor = 'pointer';
+                avatarContainer.addEventListener('click', () => {
+                    if (avatarUploadInput) {
+                        avatarUploadInput.click();
+                    }
+                });
+            }
+
+            // When a file is selected, read and save it
+            if (avatarUploadInput) {
+                avatarUploadInput.addEventListener('change', (event) => {
+                    const file = event.target.files[0];
+                    if (file && profileAvatarImg) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            const newAvatarSrc = e.target.result;
+                            profileAvatarImg.src = newAvatarSrc; // Update the image on the page
+                            existingData.profileAvatar = newAvatarSrc; // Add to user data object
+                            localStorage.setItem('userData', JSON.stringify(existingData)); // Save to localStorage
+                        };
+                        reader.readAsDataURL(file); // Read the file as a Data URL
+                    }
                 });
             }
 
