@@ -178,6 +178,7 @@
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+        import { setLoggedInUser, setUserData, getUserProfile } from './auth.js';
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
@@ -199,33 +200,37 @@
         let userName;
         let email;
 
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, (user) => { // This function checks the user's login state
             if (user) {
-                console.log(user);
-                userName = user.displayName;
+                // User is signed in.
                 email = user.email;
 
-                let existingData = JSON.parse(localStorage.getItem('userData')) || {};
-                let firstName = existingData.firstName;
+                // Try to load the full user profile saved during registration/login.
+                const userProfile = getUserProfile(email);
+                let userData = {};
 
-                if (!firstName && userName) {
-                    firstName = userName.split(' ')[0];
-                }
-                if (!firstName && email) {
-                    firstName = email.split('@')[0];
+                if (Object.keys(userProfile).length > 0) {
+                    userData = userProfile;
+                } else {
+                    // No full profile found, create a basic one as a fallback.
+                    userName = user.displayName;
+                    userData = {
+                        email: email,
+                        firstName: (userName ? userName.split(' ')[0] : email.split('@')[0]),
+                        displayName: userName || ''
+                    };
                 }
 
-                existingData.firstName = firstName;
-                existingData.email = email;
-                localStorage.setItem('loggedInUser', user.uid);
-                localStorage.setItem('userData', JSON.stringify(existingData));
+                // Set the active user's data in localStorage for other pages to use.
+                setLoggedInUser(user.uid);
+                setUserData(userData);
 
                 const greetingEl = document.getElementById('sidebarGreeting');
                 if (greetingEl) {
-                    greetingEl.textContent = `Hey ${firstName}`;
+                    greetingEl.textContent = `Hey ${userData.firstName || 'User'}`;
                 }
 
-                console.log('Welcome', firstName, ';', 'your email is', email);
+                console.log('Welcome', userData.firstName, ';', 'your email is', email);
 
             }
         });

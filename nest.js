@@ -1,26 +1,22 @@
+import { isLoggedIn, getUserData, getTheme, logout, setUserData } from './auth.js';
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Auth Check
-    if (!localStorage.getItem('loggedInUser')) {
+    if (!isLoggedIn()) {
         window.location.href = 'login.html';
         return;
     }
 
-    // Theme Application
-    // Initial theme is set by theme-loader.js in <head> to prevent FOUC.
-    // This listener handles live updates if the OS theme changes while the user is on the page.
     if (window.matchMedia) {
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-            const savedTheme = localStorage.getItem('appTheme') || 'system';
+            const savedTheme = getTheme();
             if (savedTheme === 'system') {
-                // If system theme is active, toggle dark-theme class based on OS preference
                 const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                 document.documentElement.classList.toggle('dark-theme', isDark);
             }
         });
     }
 
-    // Common UI elements
-    const userData = JSON.parse(localStorage.getItem('userData')) || {};
+    const userData = getUserData();
     const firstName = userData.firstName || "User";
 
     const greetingEl = document.getElementById('sidebarGreeting');
@@ -54,12 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (logoutItem) {
         logoutItem.addEventListener('click', (e) => {
             e.stopPropagation();
-            localStorage.removeItem('loggedInUser');
-            window.location.href = 'login.html';
+            logout();
         });
     }
 
-    // Page-specific logic for nest.html modal
     const modal = document.getElementById('nestModalOverlay');
     const closeModalBtn = document.getElementById('modalCloseBtn');
     const startJourneyBtn = document.getElementById('btnStartJourney');
@@ -76,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (closeModalBtn) closeModalBtn.addEventListener('click', hideModal);
     if (startJourneyBtn) startJourneyBtn.addEventListener('click', hideModal);
 
-    // ── Nest Form: Continue button ──────────────────────────────────
     const nestForm = document.getElementById('nestSetupForm');
     if (nestForm) {
         nestForm.addEventListener('submit', (e) => {
@@ -90,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const childSurname = surnameInput   ? surnameInput.value.trim()   : '';
             const childDob     = dobInput       ? dobInput.value               : '';
 
-            // Validation
             if (!childFirst) {
                 firstNameInput && firstNameInput.focus();
                 return;
@@ -104,22 +96,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Save to localStorage
-            const userData = JSON.parse(localStorage.getItem('userData')) || {};
+            const userData = getUserData();
             userData.nestChild = {
                 firstName: childFirst,
                 surname:   childSurname,
                 dob:       childDob,
                 createdAt: new Date().toISOString()
             };
-            localStorage.setItem('userData', JSON.stringify(userData));
+            setUserData(userData);
 
-            // Format DOB for display
             const dobFormatted = new Date(childDob).toLocaleDateString('en-GB', {
                 day: 'numeric', month: 'long', year: 'numeric'
             });
 
-            // Show success state in place of the form
             const nestRight = document.querySelector('.nest-right');
             if (nestRight) {
                 nestRight.innerHTML = `
@@ -145,5 +134,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    // ────────────────────────────────────────────────────────────────
 });

@@ -70,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const menuToggle = document.getElementById('menuToggle');
             const sidebar = document.querySelector('.sidebar');
             if (menuToggle && sidebar) {
-                // Create dim overlay for clicking outside to close
                 const sidebarOverlay = document.createElement('div');
                 sidebarOverlay.id = 'sidebarOverlay';
                 sidebarOverlay.style.cssText = 'display:none;position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:1000;transition:opacity 0.3s;';
@@ -112,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const selectAmountButton = (button) => {
                 clearAmountSelection();
                 button.classList.add('selected');
-                // Use data-amount if set, otherwise parse text (handles "20K" → 20000)
                 let rawValue;
                 if (button.dataset.amount) {
                     rawValue = button.dataset.amount;

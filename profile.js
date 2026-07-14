@@ -13,23 +13,29 @@
             if (existingData.firstName) {
                 document.getElementById('greetingName').innerHTML = `Go <strong>${existingData.firstName}</strong>`;
             }
-            if (existingData.displayName) {
-                document.querySelector('.user-full-name').textContent = existingData.displayName;
-            } else if (existingData.email) {
-                document.querySelector('.user-full-name').textContent = existingData.email.split('@')[0];
+            const userFullNameContainer = document.querySelector('.user-full-name');
+            if (userFullNameContainer) {
+                let fullName = '';
+                if (existingData.displayName) {
+                    fullName = existingData.displayName;
+                } else if (existingData.firstName && existingData.lastName) {
+                    fullName = `${existingData.firstName} ${existingData.lastName}`;
+                } else if (existingData.firstName) {
+                    fullName = existingData.firstName;
+                } else if (existingData.email) {
+                    fullName = existingData.email.split('@')[0];
+                }
+                userFullNameContainer.textContent = fullName || 'User';
             }
 
-            // --- Profile Picture Upload ---
             const avatarContainer = document.querySelector('.avatar-large');
             const profileAvatarImg = document.getElementById('profileAvatar');
             const avatarUploadInput = document.getElementById('avatarUpload');
 
-            // On page load, check for a saved avatar in localStorage and display it
             if (profileAvatarImg && existingData.profileAvatar) {
                 profileAvatarImg.src = existingData.profileAvatar;
             }
 
-            // When the avatar container is clicked, programmatically click the hidden file input
             if (avatarContainer) {
                 avatarContainer.style.cursor = 'pointer';
                 avatarContainer.addEventListener('click', () => {
@@ -39,7 +45,6 @@
                 });
             }
 
-            // When a file is selected, read and save it
             if (avatarUploadInput) {
                 avatarUploadInput.addEventListener('change', (event) => {
                     const file = event.target.files[0];
@@ -47,11 +52,11 @@
                         const reader = new FileReader();
                         reader.onload = (e) => {
                             const newAvatarSrc = e.target.result;
-                            profileAvatarImg.src = newAvatarSrc; // Update the image on the page
-                            existingData.profileAvatar = newAvatarSrc; // Add to user data object
-                            localStorage.setItem('userData', JSON.stringify(existingData)); // Save to localStorage
+                            profileAvatarImg.src = newAvatarSrc;
+                            existingData.profileAvatar = newAvatarSrc;
+                            localStorage.setItem('userData', JSON.stringify(existingData));
                         };
-                        reader.readAsDataURL(file); // Read the file as a Data URL
+                        reader.readAsDataURL(file);
                     }
                 });
             }
@@ -231,23 +236,19 @@
                 }, 3000);
             }
 
-            // ── Theme Switcher ──────────────────────────────────────────
             const themeSystem = document.getElementById('themeSystem');
             const themeDay    = document.getElementById('themeDay');
             const themeNight  = document.getElementById('themeNight');
             const themeOptions = [themeSystem, themeDay, themeNight];
 
             function applyTheme(theme) {
-                // Save preference
                 localStorage.setItem('appTheme', theme);
 
-                // Update html class
                 if (theme === 'night') {
                     document.documentElement.classList.add('dark-theme');
                 } else if (theme === 'day') {
                     document.documentElement.classList.remove('dark-theme');
                 } else {
-                    // system: follow OS preference
                     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
                     if (prefersDark) {
                         document.documentElement.classList.add('dark-theme');
@@ -256,18 +257,15 @@
                     }
                 }
 
-                // Update active button UI
                 themeOptions.forEach(btn => btn && btn.classList.remove('active'));
                 const map = { system: themeSystem, day: themeDay, night: themeNight };
                 if (map[theme]) map[theme].classList.add('active');
             }
 
-            // Set active button on page load to match saved preference
             const savedTheme = localStorage.getItem('appTheme') || 'system';
             applyTheme(savedTheme);
 
             if (themeSystem) themeSystem.addEventListener('click', () => applyTheme('system'));
             if (themeDay)    themeDay.addEventListener('click',    () => applyTheme('day'));
             if (themeNight)  themeNight.addEventListener('click',  () => applyTheme('night'));
-            // ────────────────────────────────────────────────────────────
         });

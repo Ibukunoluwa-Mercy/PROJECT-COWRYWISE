@@ -4,13 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Initial theme is set by theme-loader.js in <head> to prevent FOUC.
-    // This listener handles live updates if the OS theme changes while the user is on the page.
     if (window.matchMedia) {
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
             const savedTheme = localStorage.getItem('appTheme') || 'system';
             if (savedTheme === 'system') {
-                // If system theme is active, toggle dark-theme class based on OS preference
                 const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                 document.documentElement.classList.toggle('dark-theme', isDark);
             }
@@ -56,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Logic for balance and payments, similar to dashboard
     const WALLET_BALANCE_PREFIX = 'walletBalance::';
 
     function getWalletBalanceKey() {

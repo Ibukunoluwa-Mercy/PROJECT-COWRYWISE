@@ -12,6 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/07/10/08/20260710084313-0BFXJUAE.js" defer></script>
+
     <style>
         * {
             margin: 0;
@@ -162,7 +165,9 @@
             left: 58%;
         }
 
-        .footer-links a {
+        .footer-links button {
+            background-color: transparent;
+            border: none;
             color: #0066f5;
             text-decoration: none;
             font-weight: 600;
@@ -260,7 +265,7 @@
 
         </div>
         <div class="footer-links">
-            <span>Trouble signing in? <a href="#">Chat with us</a></span>
+            <span>Trouble signing in? <button id="bp-toggle-chat">Chat with us</button></span>
 
             <div class="privacy">
                 <a href="#">Privacy</a> | <a href="#">Terms</a>
@@ -290,6 +295,7 @@
 <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+    import { setLoggedInUser, setUserData, setUserProfile, getUserProfile } from './auth.js';
     import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
@@ -313,15 +319,22 @@
         signInWithPopup(auth, provider)
             .then((result) => {
                 const user = result.user;
-                console.log(user);
                 const fullName = user.displayName || '';
                 const firstName = fullName.split(' ')[0];
-                localStorage.setItem('loggedInUser', user.uid);
-                localStorage.setItem('userData', JSON.stringify({
+                setLoggedInUser(user.uid);
+
+                const userData = {
                     firstName: firstName,
                     email: user.email,
                     displayName: fullName
-                }));
+                };
+
+                // Save to user-specific and generic keys
+                const existingProfile = getUserProfile(user.email);
+                const updatedProfile = { ...existingProfile, ...userData };
+                setUserProfile(user.email, updatedProfile);
+                setUserData(updatedProfile);
+
                 setTimeout(() => {
                     window.location.href = 'dashboard.html';
                 }, 1000);
@@ -363,14 +376,22 @@
                 const user = userCredential.user;
                 console.log("Welcome back", user.email);
 
-                const existingData = JSON.parse(localStorage.getItem('userData')) || {};
-                localStorage.setItem('loggedInUser', user.uid);
-                if (!existingData.firstName) {
-                    existingData.firstName = user.email.split('@')[0];
-                }
-                existingData.email = user.email;
-                localStorage.setItem('userData', JSON.stringify(existingData));
+                setLoggedInUser(user.uid);
 
+                // Fetch the specific user's profile from localStorage
+                const userProfile = getUserProfile(user.email);
+                let userData = {};
+
+                if (Object.keys(userProfile).length > 0) {
+                    userData = userProfile;
+                } else {
+                    // Fallback for users without a stored profile
+                    userData = {
+                        email: user.email,
+                        firstName: user.email.split('@')[0]
+                    };
+                }
+                setUserData(userData);
                 window.location.href = 'dashboard.html';
             })
             .catch((error) => {

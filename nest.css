@@ -521,7 +521,6 @@
      color: #ffffff;
      font-size: 24px;
      cursor: pointer;
-     /* transition: 0.3s; */
      z-index: 100;
  }
 
@@ -536,7 +535,6 @@
  }
 
 
-        /* Responsiveness */
         @media (max-width: 1000px) {
             .nest-layout {
                 gap: 30px;
@@ -641,7 +639,6 @@
             }
         }
 
-        /* ── Nest Form Success State ─────────────────────────────────── */
         .nest-success-card {
             display: flex;
             flex-direction: column;
@@ -739,4 +736,3 @@
         .btn-nest-home:active {
             transform: scale(0.98);
         }
-        /* ──────────────────────────────────────────────────────────── */

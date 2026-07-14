@@ -1,23 +1,22 @@
+import { isLoggedIn, getUserData, getTheme, logout, getWalletBalance, setWalletBalance } from './auth.js';
+
 document.addEventListener('DOMContentLoaded', () => {
-    if (!localStorage.getItem('loggedInUser')) {
+    if (!isLoggedIn()) {
         window.location.href = 'login.html';
         return;
     }
 
-    // Initial theme is set by theme-loader.js in <head> to prevent FOUC.
-    // This listener handles live updates if the OS theme changes while the user is on the page.
     if (window.matchMedia) {
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-            const savedTheme = localStorage.getItem('appTheme') || 'system';
+            const savedTheme = getTheme();
             if (savedTheme === 'system') {
-                // If system theme is active, toggle dark-theme class based on OS preference
                 const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                 document.documentElement.classList.toggle('dark-theme', isDark);
             }
         });
     }
 
-    const userData = JSON.parse(localStorage.getItem('userData')) || {};
+    const userData = getUserData();
     const firstName = userData.firstName || "User";
 
     const greetingEl = document.getElementById('sidebarGreeting');
@@ -51,26 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (logoutItem) {
         logoutItem.addEventListener('click', (e) => {
             e.stopPropagation();
-            localStorage.removeItem('loggedInUser');
-            window.location.href = 'login.html';
+            logout();
         });
-    }
-
-    // Logic for balance and payments, similar to dashboard
-    const WALLET_BALANCE_PREFIX = 'walletBalance::';
-
-    function getWalletBalanceKey() {
-        const userId = localStorage.getItem('loggedInUser');
-        return userId ? `${WALLET_BALANCE_PREFIX}${userId}` : `${WALLET_BALANCE_PREFIX}guest`;
-    }
-
-    function getWalletBalance() {
-        const value = localStorage.getItem(getWalletBalanceKey());
-        return value ? Number(value) : 0;
-    }
-
-    function setWalletBalance(amount) {
-        localStorage.setItem(getWalletBalanceKey(), String(amount));
     }
 
     function formatNaira(amount) {

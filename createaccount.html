@@ -14,8 +14,8 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
     <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
-<script src="https://files.bpcontent.cloud/2026/07/10/08/20260710084313-0BFXJUAE.js" defer></script>
-    
+    <script src="https://files.bpcontent.cloud/2026/07/10/08/20260710084313-0BFXJUAE.js" defer></script>
+
     <style>
         * {
             margin: 0;
@@ -100,32 +100,32 @@
             margin-top: 20px;
         }
 
-         .fab {
-     position: fixed;
-     bottom: 30px;
-     right: 30px;
-     width: 55px;
-     height: 55px;
-     background-color: #0066f5;
-     border-radius: 50%;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     color: #ffffff;
-     font-size: 24px;
-     cursor: pointer;
-     z-index: 100;
- }
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
+            background-color: #0066f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 100;
+        }
 
- .fab:hover {
-     transform: scale(1.05);
-     background-color: #0052c4;
- }
+        .fab:hover {
+            transform: scale(1.05);
+            background-color: #0052c4;
+        }
 
- .fab button {
-    border: none;
-    background: transparent;
- }
+        .fab button {
+            border: none;
+            background: transparent;
+        }
 
 
         .social button {
@@ -200,7 +200,7 @@
         }
 
         .footer-links {
-            margin-top: 20px;
+            margin: 30px 0px;
             display: flex;
             justify-content: space-between;
             color: #666;
@@ -208,7 +208,9 @@
             width: 62%;
         }
 
-        .footer-links a {
+        .footer-links button {
+            background-color: transparent;
+            border: none;
             color: #0066f5;
             text-decoration: none;
             font-weight: 600;
@@ -280,27 +282,28 @@
                 width: 100%;
             }
 
-            .fab{
-                     position: fixed;
-     bottom: 30px;
-     right: 30px;
-     width: 30px;
-     height: 30px;
-     background-color: #0066f5;
-     border-radius: 50%;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     color: #ffffff;
-     font-size: 24px;
-     cursor: pointer;
-     z-index: 100;
+            .fab {
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                width: 30px;
+                height: 30px;
+                background-color: #0066f5;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #ffffff;
+                font-size: 24px;
+                cursor: pointer;
+                z-index: 100;
             }
 
-             .fab button {
-    border: none;
-    background: transparent;
- }
+            .fab button {
+                border: none;
+                background: transparent;
+            }
+
             .footer-links {
                 align-items: center;
                 justify-content: center;
@@ -401,16 +404,16 @@
             <span><img src="IMAGES/signup-sec.png" alt="" width="5%"> Cowrywise is licensed by the SEC</span>
 
             <div>
-                <a href="#">Need help?</a>
+                <button>Need help?</button>
             </div>
         </div>
 
         <div class="bg-image">
             <img src="IMAGES/signup-bg.svg" alt="">
         </div>
-                        <div class="fab">
-        <button id="bp-toggle-chat"><img src="IMAGES/Logo.png"  alt="" width="45px"></button>
-    </div>
+        <div class="fab">
+            <button id="bp-toggle-chat"><img src="IMAGES/Logo.png" alt="" width="45px"></button>
+        </div>
     </div>
 </body>
 <script src="script.js"></script>
@@ -433,6 +436,7 @@
 <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+    import { setLoggedInUser, setUserData, setUserProfile } from './auth.js';
     import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
@@ -459,12 +463,18 @@
                 console.log(user);
                 const fullName = user.displayName || '';
                 const firstName = fullName.split(' ')[0];
-                localStorage.setItem('loggedInUser', user.uid);
-                localStorage.setItem('userData', JSON.stringify({
+                setLoggedInUser(user.uid);
+
+                const userData = {
                     firstName: firstName,
                     email: user.email,
                     displayName: fullName
-                }));
+                };
+
+                // Save to user-specific and generic keys
+                setUserProfile(user.email, userData);
+                setUserData(userData);
+
                 setTimeout(() => {
                     window.location.href = 'pin.html';
                 }, 1000);
@@ -476,7 +486,7 @@
                 console.log(errorMessage);
             })
     }
-    
+
     window.googleSign = googleSign
 
 
@@ -496,14 +506,20 @@
             .then((userCredential) => {
                 const user = userCredential.user;
                 console.log(userCredential);
-                localStorage.setItem('loggedInUser', user.uid);
-                localStorage.setItem('userData', JSON.stringify({
+                const userData = {
                     firstName: userLegalName,
                     lastName: userLegalLastName,
+                    displayName: `${userLegalName} ${userLegalLastName}`,
                     email: email,
                     username: userName,
                     phone: userPhoneNumber
-                }));
+                };
+
+                setLoggedInUser(user.uid);
+                // Save to a user-specific key for future logins
+                setUserProfile(email, userData);
+                // Save to the generic key for the current session
+                setUserData(userData);
                 window.location.href = 'pin.html';
             })
             .catch((error) => {

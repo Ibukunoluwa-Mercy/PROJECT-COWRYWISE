@@ -449,7 +449,6 @@
             text-decoration: underline;
         }
 
-        /* Responsiveness*/
         @media (max-width: 1000px) {
             .invest-header {
                 flex-direction: column;

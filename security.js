@@ -1,4 +1,10 @@
+import { getUserData, setUserData, isLoggedIn } from './auth.js';
+
 document.addEventListener('DOMContentLoaded', () => {
+    if (!isLoggedIn()) {
+        window.location.href = 'login.html';
+        return;
+    }
 
     const hamburgerMenu = document.getElementById('hamburgerMenu');
     const sidebar = document.querySelector('.sidebar');
@@ -8,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const existingData = JSON.parse(localStorage.getItem('userData')) || {};
+    const existingData = getUserData();
     if (existingData.firstName) {
         document.getElementById('greetingName').innerHTML = `Go <strong>${existingData.firstName}</strong>`;
     }
@@ -57,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const val = phoneInput.value.trim();
             if (val) {
                 existingData.phone = val;
-                localStorage.setItem('userData', JSON.stringify(existingData));
+                setUserData(existingData);
                 phoneInputGroup.style.display = 'none';
                 phoneDisplay.style.display = 'block';
                 phoneDisplay.textContent = val;
@@ -93,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const val = ninInput.value.trim();
             if (val) {
                 existingData.nin = val;
-                localStorage.setItem('userData', JSON.stringify(existingData));
+                setUserData(existingData);
                 ninInputGroup.style.display = 'none';
                 ninDisplay.style.display = 'block';
                 ninDisplay.textContent = val;
@@ -127,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const val = bvnInput.value.trim();
             if (val) {
                 existingData.bvn = val;
-                localStorage.setItem('userData', JSON.stringify(existingData));
+                setUserData(existingData);
                 bvnInputGroup.style.display = 'none';
                 bvnDisplay.style.display = 'block';
                 bvnDisplay.textContent = '***' + val.slice(-4);

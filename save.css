@@ -487,7 +487,6 @@
      color: #ffffff;
      font-size: 24px;
      cursor: pointer;
-     /* transition: 0.3s; */
      z-index: 100;
  }
 
@@ -600,7 +599,6 @@
             background-color: #0052c4;
         }
 
-/* Responsiveness */
         @media (max-width: 1000px) {
             .menu-toggle {
                 display: block;
