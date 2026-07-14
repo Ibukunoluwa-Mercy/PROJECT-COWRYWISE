@@ -289,18 +289,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         // Update the password in the general 'userData' for the current session
                         const sessionUserData = getUserData();
-                        if (sessionUserData.password) {
-                            sessionUserData.password = newPassword;
-                            setUserData(sessionUserData);
-                        }
+                        sessionUserData.password = newPassword;
+                        setUserData(sessionUserData);
 
                         // Update the password in the user's specific profile for persistence
                         if (userEmail) {
                             const userProfile = getUserProfile(userEmail);
-                            if (Object.keys(userProfile).length > 0 && 'password' in userProfile) {
-                                userProfile.password = newPassword;
-                                setUserProfile(userEmail, userProfile);
-                            }
+                            userProfile.password = newPassword;
+                            setUserProfile(userEmail, userProfile);
                         }
 
                         closePasswordModal();
