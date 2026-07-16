@@ -1,21 +1,7 @@
-import { getUserData, setUserData, isLoggedIn, getUserProfile, setUserProfile } from './auth.js';
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-import { getAuth, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyAXrI6w4SUZSvQKwOLhEKQgBJP4_IIVG4U",
-    authDomain: "project-cowrywise.firebaseapp.com",
-    projectId: "project-cowrywise",
-    storageBucket: "project-cowrywise.firebasestorage.app",
-    messagingSenderId: "941775035575",
-    appId: "1:941775035575:web:641bec9ad2778b5b214132"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
+import { isLoggedIn, getUserData, setUserData, getUserProfile, setUserProfile, logout } from './auth.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+
     if (!isLoggedIn()) {
         window.location.href = 'login.html';
         return;
@@ -26,6 +12,27 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hamburgerMenu) {
         hamburgerMenu.addEventListener('click', () => {
             sidebar.classList.toggle('active');
+        });
+    }
+
+    const userProfileBtn = document.getElementById('userProfileBtn');
+    const logoutDropdown = document.getElementById('logoutDropdown');
+    if (userProfileBtn && logoutDropdown) {
+        userProfileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            logoutDropdown.style.display = logoutDropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', () => {
+            logoutDropdown.style.display = 'none';
+        });
+    }
+
+    const logoutItem = document.getElementById('logoutItem');
+    if (logoutItem) {
+        logoutItem.addEventListener('click', (e) => {
+            e.stopPropagation();
+            logout();
         });
     }
 
@@ -239,8 +246,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (savePasswordChangeBtn) {
         savePasswordChangeBtn.addEventListener('click', () => {
-            const user = auth.currentUser;
-
             const oldPassword = oldPasswordInput.value;
             const newPassword = newPasswordInput.value;
             const confirmNewPassword = confirmNewPasswordInput.value;
@@ -261,60 +266,218 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            // Validate current password against localStorage
+            const storedUser = getUserData();
+            if (!storedUser.password || storedUser.password !== oldPassword) {
+                errorDiv.textContent = "Current password is incorrect.";
+                errorDiv.style.display = 'block';
+                return;
+            }
+
             errorDiv.style.display = 'none';
             const originalBtnText = savePasswordChangeBtn.textContent;
             savePasswordChangeBtn.textContent = 'Saving...';
             savePasswordChangeBtn.disabled = true;
 
-            const credential = EmailAuthProvider.credential(user.email, oldPassword);
+            // Update password in localStorage
+            setTimeout(() => {
+                storedUser.password = newPassword;
+                setUserData(storedUser);
 
-            reauthenticateWithCredential(user, credential).then(() => {
-                updatePassword(user, newPassword).then(() => {
-                    setTimeout(() => {
-                        Toastify({
-                            text: "✅ Password updated successfully!",
-                            duration: 3000,
-                            close: true,
-                            gravity: "top",
-                            position: "right",
-                            stopOnFocus: true,
-                            style: {
-                                background: "linear-gradient(to right, #00d18b, #00b09b)",
-                                borderRadius: "8px",
-                            },
-                        }).showToast();
+                Toastify({
+                    text: "✅ Password updated successfully!",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "linear-gradient(to right, #00d18b, #00b09b)",
+                        borderRadius: "8px",
+                    },
+                }).showToast();
 
-                        // Get current user's email from the authenticated user object
-                        const userEmail = user.email;
-
-                        // Update the password in the general 'userData' for the current session
-                        const sessionUserData = getUserData();
-                        sessionUserData.password = newPassword;
-                        setUserData(sessionUserData);
-
-                        // Update the password in the user's specific profile for persistence
-                        if (userEmail) {
-                            const userProfile = getUserProfile(userEmail);
-                            userProfile.password = newPassword;
-                            setUserProfile(userEmail, userProfile);
-                        }
-
-                        closePasswordModal();
-                        savePasswordChangeBtn.textContent = originalBtnText;
-                        savePasswordChangeBtn.disabled = false;
-                    }, 2000);
-                }).catch((error) => {
-                    errorDiv.textContent = `Error updating password: ${error.message}`;
-                    errorDiv.style.display = 'block';
-                    savePasswordChangeBtn.textContent = originalBtnText;
-                    savePasswordChangeBtn.disabled = false;
-                });
-            }).catch((error) => {
-                errorDiv.textContent = `Authentication failed. Please check your current password.`;
-                errorDiv.style.display = 'block';
+                closePasswordModal();
                 savePasswordChangeBtn.textContent = originalBtnText;
                 savePasswordChangeBtn.disabled = false;
+            }, 800);
+        });
+    }
+
+
+    // ==========================================
+    // Change PIN Modal Logic
+    // ==========================================
+
+    const pinChangeModal = document.getElementById('pinChangeModal');
+    const changePinBtn = document.getElementById('changePinBtn');
+    const pinModalClose = document.getElementById('pinModalClose');
+    const pinModalCancel = document.getElementById('pinModalCancel');
+    const savePinChangeBtn = document.getElementById('savePinChangeBtn');
+    const pinErrorDiv = document.getElementById('pinChangeError');
+
+    const oldPinInputs = document.querySelectorAll('#oldPinRow .pin-dot-input');
+    const newPinInputs = document.querySelectorAll('#newPinRow .pin-dot-input');
+    const confirmPinInputs = document.querySelectorAll('#confirmPinRow .pin-dot-input');
+
+    function getPinValue(inputs) {
+        return Array.from(inputs).map(i => i.value).join('');
+    }
+
+    function clearPinRow(inputs) {
+        inputs.forEach(i => {
+            i.value = '';
+            i.classList.remove('filled');
+        });
+    }
+
+    function setupPinDotInputs(inputs, nextRowInputs) {
+        inputs.forEach((input, idx) => {
+            input.addEventListener('input', (e) => {
+                const val = e.target.value;
+                if (!/^[0-9]$/.test(val)) {
+                    e.target.value = '';
+                    e.target.classList.remove('filled');
+                    return;
+                }
+                e.target.classList.add('filled');
+                if (idx < inputs.length - 1) {
+                    inputs[idx + 1].focus();
+                } else if (nextRowInputs) {
+                    nextRowInputs[0].focus();
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace') {
+                    if (e.target.value === '') {
+                        if (idx > 0) {
+                            inputs[idx - 1].value = '';
+                            inputs[idx - 1].classList.remove('filled');
+                            inputs[idx - 1].focus();
+                        }
+                    } else {
+                        e.target.value = '';
+                        e.target.classList.remove('filled');
+                    }
+                    e.preventDefault();
+                } else if (e.key === 'ArrowLeft' && idx > 0) {
+                    inputs[idx - 1].focus();
+                } else if (e.key === 'ArrowRight' && idx < inputs.length - 1) {
+                    inputs[idx + 1].focus();
+                }
+            });
+
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const digits = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, inputs.length);
+                digits.split('').forEach((d, i) => {
+                    if (inputs[i]) {
+                        inputs[i].value = d;
+                        inputs[i].classList.add('filled');
+                    }
+                });
+                const lastIdx = Math.min(digits.length - 1, inputs.length - 1);
+                inputs[lastIdx] && inputs[lastIdx].focus();
             });
         });
     }
-});
+
+    setupPinDotInputs(oldPinInputs, newPinInputs);
+    setupPinDotInputs(newPinInputs, confirmPinInputs);
+    setupPinDotInputs(confirmPinInputs, null);
+
+    const openPinModal = () => {
+        if (pinChangeModal) {
+            clearPinRow(oldPinInputs);
+            clearPinRow(newPinInputs);
+            clearPinRow(confirmPinInputs);
+            pinErrorDiv.style.display = 'none';
+            pinErrorDiv.textContent = '';
+            pinChangeModal.hidden = false;
+            oldPinInputs[0].focus();
+        }
+    };
+
+    const closePinModal = () => {
+        if (pinChangeModal) {
+            pinChangeModal.hidden = true;
+        }
+    };
+
+    if (changePinBtn) changePinBtn.addEventListener('click', openPinModal);
+    if (pinModalClose) pinModalClose.addEventListener('click', closePinModal);
+    if (pinModalCancel) pinModalCancel.addEventListener('click', closePinModal);
+
+    // Close modals on overlay click
+    if (pinChangeModal) {
+        pinChangeModal.addEventListener('click', (e) => {
+            if (e.target === pinChangeModal) closePinModal();
+        });
+    }
+    if (passwordChangeModal) {
+        passwordChangeModal.addEventListener('click', (e) => {
+            if (e.target === passwordChangeModal) closePasswordModal();
+        });
+    }
+
+    if (savePinChangeBtn) {
+        savePinChangeBtn.addEventListener('click', () => {
+            const oldPin = getPinValue(oldPinInputs);
+            const newPin = getPinValue(newPinInputs);
+            const confirmPin = getPinValue(confirmPinInputs);
+
+            if (oldPin.length < 4 || newPin.length < 4 || confirmPin.length < 4) {
+                pinErrorDiv.textContent = "Please fill in all PIN fields (4 digits each).";
+                pinErrorDiv.style.display = 'block';
+                return;
+            }
+
+            // Validate current PIN against localStorage
+            const storedUser = getUserData();
+            if (!storedUser.pin || storedUser.pin !== oldPin) {
+                pinErrorDiv.textContent = "Current PIN is incorrect.";
+                pinErrorDiv.style.display = 'block';
+                clearPinRow(oldPinInputs);
+                oldPinInputs[0].focus();
+                return;
+            }
+
+            if (newPin !== confirmPin) {
+                pinErrorDiv.textContent = "New PINs do not match. Please try again.";
+                pinErrorDiv.style.display = 'block';
+                clearPinRow(newPinInputs);
+                clearPinRow(confirmPinInputs);
+                newPinInputs[0].focus();
+                return;
+            }
+
+            pinErrorDiv.style.display = 'none';
+            const originalBtnText = savePinChangeBtn.textContent;
+            savePinChangeBtn.textContent = 'Saving...';
+            savePinChangeBtn.disabled = true;
+
+            setTimeout(() => {
+                storedUser.pin = newPin;
+                setUserData(storedUser);
+
+                Toastify({
+                    text: "🔒 PIN updated successfully!",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "linear-gradient(to right, #0066f5, #00d18b)",
+                        borderRadius: "8px",
+                    },
+                }).showToast();
+
+                closePinModal();
+                savePinChangeBtn.textContent = originalBtnText;
+                savePinChangeBtn.disabled = false;
+            }, 800);
+        });
+    }
+});
