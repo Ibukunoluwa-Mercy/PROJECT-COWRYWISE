@@ -259,7 +259,7 @@ body {
     max-width: 900px;
 }
 
-/* Password change modal styling */
+
 #passwordChangeModal {
     position: fixed;
     inset: 0;
@@ -963,9 +963,7 @@ body.dark-theme .theme-option.active .theme-icon {
     }
 }
 
-/* ==========================================
-   PIN Change Modal Styles
-   ========================================== */
+
 
 #pinChangeModal {
     position: fixed;
@@ -1046,7 +1044,7 @@ body.dark-theme .theme-option.active .theme-icon {
     margin-bottom: 12px;
 }
 
-/* PIN dot inputs row */
+
 .pin-dots-row {
     display: flex;
     gap: 12px;

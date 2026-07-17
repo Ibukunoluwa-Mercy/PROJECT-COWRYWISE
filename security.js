@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (existingData.bvn) {
         addBvnBtn.style.display = 'none';
         bvnDisplay.style.display = 'block';
-        bvnDisplay.textContent = '***' + existingData.bvn.slice(-4); // mask bvn
+        bvnDisplay.textContent = '***' + existingData.bvn.slice(-4);
     }
 
     if (addBvnBtn) {
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('disabledAccountEmail', existingData.email);
                     localStorage.setItem('disabledAccountTime', Date.now().toString());
                 }
-                localStorage.removeItem('userData'); // "Delete" the account data locally
+                localStorage.removeItem('userData');
                 window.location.href = 'login.html';
             }
         });
@@ -197,13 +197,13 @@ document.addEventListener('DOMContentLoaded', () => {
         closeAccountBtn.addEventListener('click', (e) => {
             e.preventDefault();
             if (confirm("Are you sure you want to permanently close your account? This action cannot be undone.")) {
-                localStorage.clear(); // Clear everything
+                localStorage.clear();
                 window.location.href = 'createaccount.html';
             }
         });
     }
 
-    // Password Change Modal Logic
+
     const passwordChangeModal = document.getElementById('passwordChangeModal');
     const changePasswordBtn = document.getElementById('changePasswordBtn');
     const passwordModalClose = document.getElementById('passwordModalClose');
@@ -218,7 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const openPasswordModal = () => {
         if (passwordChangeModal) {
             passwordChangeModal.hidden = false;
-            // Reset form state
             oldPasswordInput.value = '';
             newPasswordInput.value = '';
             confirmNewPasswordInput.value = '';
@@ -266,7 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Validate current password against localStorage
             const storedUser = getUserData();
             if (!storedUser.password || storedUser.password !== oldPassword) {
                 errorDiv.textContent = "Current password is incorrect.";
@@ -279,7 +277,6 @@ document.addEventListener('DOMContentLoaded', () => {
             savePasswordChangeBtn.textContent = 'Saving...';
             savePasswordChangeBtn.disabled = true;
 
-            // Update password in localStorage
             setTimeout(() => {
                 storedUser.password = newPassword;
                 setUserData(storedUser);
@@ -305,9 +302,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // ==========================================
-    // Change PIN Modal Logic
-    // ==========================================
 
     const pinChangeModal = document.getElementById('pinChangeModal');
     const changePinBtn = document.getElementById('changePinBtn');
@@ -409,7 +403,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pinModalClose) pinModalClose.addEventListener('click', closePinModal);
     if (pinModalCancel) pinModalCancel.addEventListener('click', closePinModal);
 
-    // Close modals on overlay click
     if (pinChangeModal) {
         pinChangeModal.addEventListener('click', (e) => {
             if (e.target === pinChangeModal) closePinModal();
@@ -433,7 +426,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Validate current PIN against localStorage
             const storedUser = getUserData();
             if (!storedUser.pin || storedUser.pin !== oldPin) {
                 pinErrorDiv.textContent = "Current PIN is incorrect.";
