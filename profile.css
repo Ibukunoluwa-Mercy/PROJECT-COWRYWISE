@@ -1141,3 +1141,200 @@ body.dark-theme .theme-option.active .theme-icon {
         font-size: 1.25rem;
     }
 }
+
+/* ============================================================
+   RICH DROPDOWN STYLES
+   ============================================================ */
+
+/* Header avatar pill (the trigger) */
+.user-profile-avatar-wrap {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0066f5, #00d18b);
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.header-avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    display: block;
+}
+
+/* Override the old narrow dropdown – sizing/shape only, no display change */
+.logout-dropdown {
+    width: 240px !important;
+    padding: 8px !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 32px rgba(10, 46, 101, 0.14), 0 2px 8px rgba(0,0,0,0.06) !important;
+    top: 48px !important;
+    right: 0 !important;
+    overflow: visible !important;
+    z-index: 9999 !important;
+    /* No animation here — it would fire on page load when element is hidden */
+}
+
+/* Animate ONLY when JS sets display:block via style attribute */
+.logout-dropdown[style*="display: block"],
+.logout-dropdown[style*="display:block"] {
+    animation: dropdownFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* User info card at the top of the dropdown */
+.dropdown-user-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 10px 14px 10px;
+}
+
+.dropdown-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e8f0fe;
+    flex-shrink: 0;
+}
+
+.dropdown-user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.dropdown-user-name {
+    color: #0a2e65;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown-user-email {
+    color: #8fa0b9;
+    font-size: 11.5px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Divider line */
+.dropdown-divider {
+    height: 1px;
+    background-color: #f0f3f8;
+    margin: 4px 4px;
+    border-radius: 2px;
+}
+
+/* Nav items */
+.dropdown-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    text-decoration: none;
+    color: #0a2e65;
+    font-size: 13.5px;
+    font-weight: 600;
+}
+
+.dropdown-nav-item i:first-child {
+    color: #8fa0b9;
+    width: 16px;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.dropdown-nav-item span {
+    flex: 1;
+}
+
+.dropdown-chevron {
+    color: #c8d4e3 !important;
+    font-size: 11px !important;
+    width: auto !important;
+}
+
+.dropdown-nav-item:hover {
+    background-color: #f4f7fa;
+    color: #0066f5;
+}
+
+.dropdown-nav-item:hover i:first-child {
+    color: #0066f5;
+}
+
+/* Active page highlight */
+.active-nav-item {
+    background-color: #eef4ff;
+    color: #0066f5;
+}
+
+.active-nav-item i:first-child {
+    color: #0066f5 !important;
+}
+
+/* Logout row – red tint on hover */
+.dropdown-logout {
+    color: #d93b3b;
+    margin-top: 2px;
+}
+
+.dropdown-logout i:first-child {
+    color: #e57373 !important;
+}
+
+.dropdown-logout:hover {
+    background-color: #fff0f0;
+    color: #b91c1c;
+}
+
+.dropdown-logout:hover i:first-child {
+    color: #b91c1c !important;
+}
+/* ============================================================
+   DROPDOWN STACKING FIXES
+   Ensure dropdown is never clipped or hidden behind other layers
+   ============================================================ */
+
+/* Raise the header above all page content so its dropdown child
+   can overflow and appear on top of everything */
+.header {
+    z-index: 10000 !important;
+    overflow: visible !important;
+}
+
+.header-right {
+    overflow: visible !important;
+    position: relative;
+}
+
+.user-profile {
+    overflow: visible !important;
+}

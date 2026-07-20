@@ -55,16 +55,33 @@
         <div class="header-right">
             <i class="fa-regular fa-bell"></i>
             <div class="user-profile" id="userProfileBtn">
-                <i class="fa-solid fa-user-circle"></i>
-                <i class="fa-solid fa-caret-down" style="font-size: 12px;"></i>
+                <div class="user-profile-avatar-wrap">
+                    <img src="IMAGES/avatar.svg" alt="User" class="header-avatar-img" id="headerAvatar">
+                </div>
+                <i class="fa-solid fa-caret-down" style="font-size: 11px;"></i>
                 <div class="logout-dropdown" id="logoutDropdown">
-                    <a href="profile.html" style="text-decoration: none; color: inherit;">
-                        <div class="logout-item" style="margin-bottom: 5px;">
-                            <i class="fa-solid fa-user"></i> Profile
+                    <div class="dropdown-user-card">
+                        <img src="IMAGES/avatar.svg" alt="User" class="dropdown-avatar" id="dropdownAvatar">
+                        <div class="dropdown-user-info">
+                            <span class="dropdown-user-name" id="dropdownName">User</span>
+                            <span class="dropdown-user-email" id="dropdownEmail">user@email.com</span>
                         </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="profile.html" class="dropdown-nav-item">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Profile</span>
+                        <i class="fa-solid fa-chevron-right dropdown-chevron"></i>
                     </a>
-                    <div class="logout-item" id="logoutItem">
-                        <i class="fa-solid fa-power-off"></i> Logout
+                    <a href="security.html" class="dropdown-nav-item active-nav-item">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>Security</span>
+                        <i class="fa-solid fa-chevron-right dropdown-chevron"></i>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-nav-item dropdown-logout" id="logoutItem">
+                        <i class="fa-solid fa-power-off"></i>
+                        <span>Logout</span>
                     </div>
                 </div>
             </div>
@@ -217,6 +234,68 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="script.js"></script>
     <script type="module" src="security.js"></script>
+    <script>
+        /* ---- Dropdown Controller (security page) ----
+           Runs after all other scripts. Strips competing listeners
+           off #userProfileBtn by replacing it with a clean clone,
+           then attaches ONE reliable toggle handler.
+        */
+        document.addEventListener('DOMContentLoaded', function () {
+            var btn    = document.getElementById('userProfileBtn');
+            var drop   = document.getElementById('logoutDropdown');
+            var logout = document.getElementById('logoutItem');
+            if (!btn || !drop) return;
+
+            // --- Populate user info ---
+            var data   = JSON.parse(localStorage.getItem('userData') || '{}');
+            var name   = data.displayName
+                      || (data.firstName && data.lastName ? data.firstName + ' ' + data.lastName : data.firstName)
+                      || data.email || 'User';
+            var email  = data.email  || '';
+            var avatar = data.profileAvatar || 'IMAGES/avatar.svg';
+            var nameEl      = document.getElementById('dropdownName');
+            var emailEl     = document.getElementById('dropdownEmail');
+            var avatarEl    = document.getElementById('dropdownAvatar');
+            var headerAvEl  = document.getElementById('headerAvatar');
+            if (nameEl)     nameEl.textContent  = name;
+            if (emailEl)    emailEl.textContent = email;
+            if (avatarEl)   avatarEl.src        = avatar;
+            if (headerAvEl) headerAvEl.src      = avatar;
+
+            // --- Strip all competing click listeners by cloning ---
+            var freshBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(freshBtn, btn);
+            btn    = freshBtn;
+            drop   = document.getElementById('logoutDropdown');
+            logout = document.getElementById('logoutItem');
+
+            // --- Single reliable toggle ---
+            function openDrop()  { drop.style.display = 'block'; }
+            function closeDrop() { drop.style.display = 'none';  }
+
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                drop.style.display === 'block' ? closeDrop() : openDrop();
+            });
+
+            document.addEventListener('click', function (e) {
+                if (!btn.contains(e.target)) closeDrop();
+            });
+
+            // Logout handler
+            if (logout) {
+                logout.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    localStorage.removeItem('loggedInUser');
+                    localStorage.removeItem('userData');
+                    window.location.href = 'login.html';
+                });
+            }
+        });
+    </script>
+
+
+
 
     <div class="payment-modal-overlay" id="passwordChangeModal" hidden>
         <div class="payment-modal" role="dialog" aria-modal="true" aria-labelledby="passwordModalTitle">

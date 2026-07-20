@@ -326,7 +326,8 @@
                 const userData = {
                     firstName: firstName,
                     email: user.email,
-                    displayName: fullName
+                    displayName: fullName,
+                    authProvider: 'google'
                 };
 
                 // Save to user-specific and generic keys
@@ -379,19 +380,17 @@
                 setLoggedInUser(user.uid);
 
                 // Fetch the specific user's profile from localStorage
+                const genericUserData = getUserData();
                 const userProfile = getUserProfile(user.email);
-                let userData = {};
 
-                if (Object.keys(userProfile).length > 0) {
-                    userData = userProfile;
-                } else {
-                    // Fallback for users without a stored profile
-                    userData = {
-                        email: user.email,
-                        firstName: user.email.split('@')[0]
-                    };
-                }
-                setUserData(userData);
+                // Merge data to prevent overwriting details (like PIN) set during registration.
+                // The user-specific profile takes precedence.
+                const finalUserData = { ...genericUserData, ...userProfile, email: user.email };
+
+                // Save the consolidated data to both the generic and user-specific keys for consistency.
+                setUserData(finalUserData);
+                setUserProfile(user.email, finalUserData);
+
                 window.location.href = 'dashboard.html';
             })
             .catch((error) => {

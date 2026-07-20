@@ -468,7 +468,9 @@
                 const userData = {
                     firstName: firstName,
                     email: user.email,
-                    displayName: fullName
+                    displayName: fullName,
+                    profileAvatar: user.photoURL || '',
+                    authProvider: 'google'
                 };
 
                 // Save to user-specific and generic keys
@@ -512,7 +514,9 @@
                     displayName: `${userLegalName} ${userLegalLastName}`,
                     email: email,
                     username: userName,
-                    phone: userPhoneNumber
+                    phone: userPhoneNumber,
+                    password: userPassword,
+                    authProvider: 'email'
                 };
 
                 setLoggedInUser(user.uid);

@@ -24,7 +24,12 @@ export function getUserData() {
 }
 
 export function setUserData(data) {
+    // Save to the generic key for the current session
     localStorage.setItem(KEYS.USER_DATA, JSON.stringify(data));
+    // Also update the user-specific profile to persist changes across logins
+    if (data && data.email) {
+        setUserProfile(data.email, data);
+    }
 }
 
 export function getUserProfile(email) {
